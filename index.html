@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>365 - Online Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* CHANGE: Updated theme to #222A72 (dark blue-purple) gradient shades */
+            background: linear-gradient(135deg, #1a1f4a 0%, #222A72 50%, #2d3a8a 100%);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            /* CHANGE: Header background to theme color #222A72 */
+            background: #222A72;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideIn 0.6s ease-out;
+            height: 60px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            text-align: left;
+            margin-left: 5px;
+            margin-top: 0;
+        }
+
+        /* CHANGE: Removed glow (drop-shadow) and hover scale for static logo */
+        .logo img {
+            font-family: 'Playfair Display', serif;
+            height: 40px; /* Adjust height as needed for your 365.png */
+            width: auto; /* Maintain aspect ratio */
+            margin: 0;
+            /* No transition or hover effects */
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            /* CHANGE: Removed hover color change - static white */
+        }
+
+        .nav a:hover {
+            /* No change on hover */
+        }
+
+        .search-menu-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            top: 4px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            /* CHANGE: Search bar background to theme shade */
+            background: #2d3a8a; /* Lighter shade of #222A72 */
+            border-radius: 25px;
+            padding: 4px 10px;
+            /* CHANGE: Removed hover background change - static */
+            width: 160px;
+            font-size: 0.9em;
+        }
+
+        .search-bar input {
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+            padding: 5px 8px;
+            width: 100%;
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+            opacity: 1;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            padding: 0 5px;
+            /* CHANGE: Removed hover color change - static white */
+        }
+
+        .search-bar:hover {
+            /* No change on hover */
+        }
+
+        .search-bar button:hover {
+            /* No change on hover */
+        }
+
+        .menu-toggle {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .logo img {
+                height: 30px; /* Smaller on mobile */
+            }
+
+            .header-nav {
+                position: fixed;
+                top: 60px;
+                right: 0;
+                /* CHANGE: Mobile nav background to theme color */
+                background: #222A72;
+                height: calc(100vh - 60px);
+                width: 200px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
+                overflow-y: auto;
+                z-index: 1001;
+            }
+
+            .header-nav.open {
+                transform: translateX(0);
+            }
+
+            .nav {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav a {
+                margin: 15px 0;
+                font-size: 1.2em;
+                width: 100%;
+            }
+
+            .search-menu-container {
+                margin-left: 0;
+                width: 100%;
+                margin-top: 15px;
+                justify-content: flex-start;
+                align-items: center;
+                top: 0;
+                position: static;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            .search-bar input {
+                width: calc(100% - 40px);
+            }
+
+            .menu-toggle {
+                top: 0;
+                position: static;
+            }
+        }
+
+        .content {
+            max-width: 1300px;
+            margin: 40px auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 20px 10px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2em;
+            color: #ccc;
+            width: 100%;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        .product {
+            display: inline-block;
+            /* CHANGE: Product background to theme shade */
+            background: #2d3a8a; /* Lighter shade of #222A72 */
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            /* CHANGE: Removed hover transform and box-shadow change - static */
+            position: relative;
+            overflow: hidden;
+            width: 220px;
+            margin-right: 20px;
+            vertical-align: top;
+        }
+
+        .product:hover {
+            /* No change on hover - same dimensions and style */
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            /* CHANGE: Removed hover transform and filter - static */
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .product img:hover {
+            /* No change on hover */
+        }
+
+        .product h3 {
+            margin: 15px 0 10px;
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .product .price {
+            font-size: 1em;
+            color: #ccc;
+            font-weight: 600;
+        }
+
+        .product .details {
+            font-size: 0.9em;
+            color: #aaa;
+            margin: 5px 0 0;
+            font-weight: 500;
+        }
+
+        .footer {
+            /* CHANGE: Footer background to theme color */
+            background: #222A72;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .social-links {
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            /* CHANGE: Removed hover color and transform - static */
+        }
+
+        .social-links a:hover {
+            /* No change on hover */
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <!-- Logo image (no glow or hover effects) -->
+            <img src="assets/365.png" alt="365 Logo" loading="lazy" />
+        </div>
+        <div class="header-nav" id="header-nav">
+            <nav class="nav" id="nav">
+                <a href="#home">Нүүр</a>
+                <a href="#contact">Холбоо барих</a>
+            </nav>
+            <div class="search-menu-container">
+                <form class="search-bar" id="search-form" role="search" action="/search" method="GET" onsubmit="return handleSearch(event)">
+                    <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
+                    <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
+                </form>
+                <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content" tabindex="0" aria-label="Барааны carousel">
+
+        <div class="no-results" id="no-results">Үр дүн олдсонгүй. Өөр үг туршиж үзнэ үү.</div>
+
+        <div class="products-container" id="products-container">
+            <div class="product">
+                <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
+                <h3>Baggy Jeans</h3>
+                <p class="price">120,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Dark Blue</span>
+                    <span class="size">Хэмжээ: M, L, XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
+                <h3>Street Hoodie</h3>
+                <p class="price">180,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black</span>
+                    <span class="size">Хэмжээ: S, M, L</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
+                <h3>Casual Shirt</h3>
+                <p class="price">95,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: White</span>
+                    <span class="size">Хэмжээ: S, M, L</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa4.png" alt="Burberry Winter Jacket - Өвлийн жакет" loading="lazy" />
+                <h3>Burberry Winter Jacket</h3>
+                <p class="price">112,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Not specified</span>
+                    <span class="size">Хэмжээ: M, L, XL, XXL, 3XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
+                <h3>Trench Coat Tee</h3>
+                <p class="price">79,900 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black, Blue</span>
+                    <span class="size">Хэмжээ: S, M, L</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
+                <h3>Y2K Long Sleeve</h3>
+                <p class="price">29,900 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black, White</span>
+                    <span class="size">Хэмжээ: S, M, L, XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
+                <h3>Baby Tee</h3>
+                <p class="price">12,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black, White, Grey, Pink</span>
+                    <span class="size">Хэмжээ: S, M, L, XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa8.png" alt="Long Autumn Coat - Хар, саарал, бор өнгөтэй" loading="lazy" />
+                <h3>Long Autumn Coat</h3>
+                <p class="price">79,000 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black, Grey, Brown</span>
+                    <span class="size">Хэмжээ: S, M, L, XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa9.png" alt="Parka Jacket (Winter) - Хар өнгөтэй" loading="lazy" />
+                <h3>Parka Jacket (Winter)</h3>
+                <p class="price">79,900 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black</span>
+                    <span class="size">Хэмжээ: S, M, L, XL</span>
+                </div>
+            </div>
+            <div class="product">
+                <img src="assets/baraa10.png" alt="Hoodie (Thin, Thick) - Хар, саарал, цагаан, цэнхэр өнгөтэй" loading="lazy" />
+                <h3>Hoodie (Thin, Thick)</h3>
+                <p class="price">49,900 ₮</p>
+                <div class="details">
+                    <span class="color">Өнгө: Black, Grey, White, Blue</span>
+                    <span class="size">Хэмжээ: M, L, XL, XXL</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; <span id="current-year"></span> 365. Бүх эрх хамгаалагдсан.</p>
+        <div class="social-links">
+            <a href="https://www.instagram.com/iconiq.onlineshopp?igsh=MWRnNTA4aDRidmw4Mw==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@iconiq" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const menuToggle = document.getElementById('menu-toggle');
+        const headerNav = document.getElementById('header-nav');
+        const searchInput = document.getElementById('search-input');
+        const productsContainer = document.getElementById('products-container');
+        const products = document.querySelectorAll('.product');
+        const noResults = document.getElementById('no-results');
+
+        // Menu toggle
+        menuToggle.addEventListener('click', () => {
+            headerNav.classList.toggle('open');
+        });
+
+        menuToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                headerNav.classList.toggle('open');
+            }
+        });
+
+        // Close menu on outside click
+        document.addEventListener('click', (e) => {
+            if (!headerNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                headerNav.classList.remove('open');
+            }
+        });
+
+        // Close menu on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && headerNav.classList.contains('open')) {
+                headerNav.classList.remove('open');
+            }
+        });
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = searchInput.value.trim();
+            if (!query) {
+                alert('Хайлтын үгээ оруулна уу.');
+                return false;
+            }
+            //
