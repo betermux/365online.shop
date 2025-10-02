@@ -218,12 +218,47 @@
         .content {
             max-width: 1300px;
             margin: 40px auto;
-            overflow-x: auto;
-            white-space: nowrap;
             padding: 0 20px 10px;
+            position: relative;
+        }
+
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2d3a8a;
+            padding-bottom: 10px;
+        }
+
+        .products-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
-            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: #2d3a8a transparent;
+        }
+
+        .products-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .products-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .products-container::-webkit-scrollbar-thumb {
+            background: #2d3a8a;
+            border-radius: 4px;
         }
 
         .no-results {
@@ -240,7 +275,6 @@
         }
 
         .product {
-            display: inline-block;
             /* CHANGE: Product background to theme shade */
             background: #2d3a8a; /* Lighter shade of #222A72 */
             border-radius: 15px;
@@ -250,9 +284,10 @@
             /* CHANGE: Removed hover transform and box-shadow change - static */
             position: relative;
             overflow: hidden;
+            flex: 0 0 220px;
             width: 220px;
-            margin-right: 20px;
             vertical-align: top;
+            display: inline-block;
         }
 
         .product:hover {
@@ -322,6 +357,21 @@
         .social-links a:hover {
             /* No change on hover */
         }
+
+        @media (max-width: 600px) {
+            .product {
+                flex: 0 0 180px;
+                width: 180px;
+            }
+
+            .products-container {
+                gap: 15px;
+            }
+
+            .category-title {
+                font-size: 1.5em;
+            }
+        }
     </style>
 </head>
 <body>
@@ -347,154 +397,115 @@
         </div>
     </header>
 
-    <main class="content" tabindex="0" aria-label="Барааны carousel">
+    <main class="content" tabindex="0" aria-label="Барааны ангилал">
 
         <div class="no-results" id="no-results">Үр дүн олдсонгүй. Өөр үг туршиж үзнэ үү.</div>
 
-        <div class="products-container" id="products-container">
-            <div class="product">
-                <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
-                <h3>Baggy Jeans</h3>
-                <p class="price">120,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Dark Blue</span>
-                    <span class="size">Хэмжээ: M, L, XL</span>
+        <!-- Өмд (Pants) Category -->
+        <section class="category-section" id="pants-category">
+            <h2 class="category-title">Өмд</h2>
+            <div class="products-container" id="pants-products">
+                <div class="product" data-keywords="baggy jeans dark blue өмд жинс">
+                    <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
+                    <h3>Baggy Jeans</h3>
+                    <p class="price">120,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Dark Blue</span>
+                        <span class="size">Хэмжээ: M, L, XL</span>
+                    </div>
                 </div>
             </div>
-            <div class="product">
-                <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
-                <h3>Street Hoodie</h3>
-                <p class="price">180,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black</span>
-                    <span class="size">Хэмжээ: S, M, L</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
-                <h3>Casual Shirt</h3>
-                <p class="price">95,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: White</span>
-                    <span class="size">Хэмжээ: S, M, L</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa4.png" alt="Burberry Winter Jacket - Өвлийн жакет" loading="lazy" />
-                <h3>Burberry Winter Jacket</h3>
-                <p class="price">112,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Not specified</span>
-                    <span class="size">Хэмжээ: M, L, XL, XXL, 3XL</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
-                <h3>Trench Coat Tee</h3>
-                <p class="price">79,900 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black, Blue</span>
-                    <span class="size">Хэмжээ: S, M, L</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
-                <h3>Y2K Long Sleeve</h3>
-                <p class="price">29,900 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black, White</span>
-                    <span class="size">Хэмжээ: S, M, L, XL</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
-                <h3>Baby Tee</h3>
-                <p class="price">12,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black, White, Grey, Pink</span>
-                    <span class="size">Хэмжээ: S, M, L, XL</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa8.png" alt="Long Autumn Coat - Хар, саарал, бор өнгөтэй" loading="lazy" />
-                <h3>Long Autumn Coat</h3>
-                <p class="price">79,000 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black, Grey, Brown</span>
-                    <span class="size">Хэмжээ: S, M, L, XL</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa9.png" alt="Parka Jacket (Winter) - Хар өнгөтэй" loading="lazy" />
-                <h3>Parka Jacket (Winter)</h3>
-                <p class="price">79,900 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black</span>
-                    <span class="size">Хэмжээ: S, M, L, XL</span>
-                </div>
-            </div>
-            <div class="product">
-                <img src="assets/baraa10.png" alt="Hoodie (Thin, Thick) - Хар, саарал, цагаан, цэнхэр өнгөтэй" loading="lazy" />
-                <h3>Hoodie (Thin, Thick)</h3>
-                <p class="price">49,900 ₮</p>
-                <div class="details">
-                    <span class="color">Өнгө: Black, Grey, White, Blue</span>
-                    <span class="size">Хэмжээ: M, L, XL, XXL</span>
-                </div>
-            </div>
-        </div>
-    </main>
+        </section>
 
-    <footer class="footer">
-        <p>&copy; <span id="current-year"></span> 365. Бүх эрх хамгаалагдсан.</p>
-        <div class="social-links">
-            <a href="https://www.instagram.com/iconiq.onlineshopp?igsh=MWRnNTA4aDRidmw4Mw==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="https://www.tiktok.com/@iconiq" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a>
-        </div>
-    </footer>
+        <!-- Цүнх (Bags) Category -->
+        <section class="category-section" id="bags-category">
+            <h2 class="category-title">Цүнх</h2>
+            <div class="products-container" id="bags-products">
+                <div class="product" data-keywords="backpack black цүнх арын цүнх">
+                    <img src="assets/baraa11.png" alt="Backpack - Хар өнгөтэй арын цүнх" loading="lazy" />
+                    <h3>Backpack</h3>
+                    <p class="price">85,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Black</span>
+                        <span class="size">Хэмжээ: One Size</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="tote bag brown цүнх гар цүнх">
+                    <img src="assets/baraa12.png" alt="Tote Bag - Бор өнгөтэй гар цүнх" loading="lazy" />
+                    <h3>Tote Bag</h3>
+                    <p class="price">45,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Brown</span>
+                        <span class="size">Хэмжээ: Medium</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="crossbody bag blue цүнх хөндлөн цүнх">
+                    <img src="assets/baraa13.png" alt="Crossbody Bag - Цэнхэр өнгөтэй хөндлөн цүнх" loading="lazy" />
+                    <h3>Crossbody Bag</h3>
+                    <p class="price">60,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Blue</span>
+                        <span class="size">Хэмжээ: Small</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <script>
-        // Dynamic year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        <!-- Цамц (Shirts) Category -->
+        <section class="category-section" id="shirts-category">
+            <h2 class="category-title">Цамц</h2>
+            <div class="products-container" id="shirts-products">
+                <div class="product" data-keywords="casual shirt white цамц">
+                    <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
+                    <h3>Casual Shirt</h3>
+                    <p class="price">95,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: White</span>
+                        <span class="size">Хэмжээ: S, M, L</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="trench coat tee black blue цамц tee">
+                    <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
+                    <h3>Trench Coat Tee</h3>
+                    <p class="price">79,900 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Black, Blue</span>
+                        <span class="size">Хэмжээ: S, M, L</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="y2k long sleeve black white цамц sleeve">
+                    <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
+                    <h3>Y2K Long Sleeve</h3>
+                    <p class="price">29,900 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Black, White</span>
+                        <span class="size">Хэмжээ: S, M, L, XL</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="baby tee black white grey pink цамц tee">
+                    <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
+                    <h3>Baby Tee</h3>
+                    <p class="price">12,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Black, White, Grey, Pink</span>
+                        <span class="size">Хэмжээ: S, M, L, XL</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        const menuToggle = document.getElementById('menu-toggle');
-        const headerNav = document.getElementById('header-nav');
-        const searchInput = document.getElementById('search-input');
-        const productsContainer = document.getElementById('products-container');
-        const products = document.querySelectorAll('.product');
-        const noResults = document.getElementById('no-results');
-
-        // Menu toggle
-        menuToggle.addEventListener('click', () => {
-            headerNav.classList.toggle('open');
-        });
-
-        menuToggle.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                headerNav.classList.toggle('open');
-            }
-        });
-
-        // Close menu on outside click
-        document.addEventListener('click', (e) => {
-            if (!headerNav.contains(e.target) && !menuToggle.contains(e.target)) {
-                headerNav.classList.remove('open');
-            }
-        });
-
-        // Close menu on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && headerNav.classList.contains('open')) {
-                headerNav.classList.remove('open');
-            }
-        });
-
-        function handleSearch(event) {
-            event.preventDefault();
-            const query = searchInput.value.trim();
-            if (!query) {
-                alert('Хайлтын үгээ оруулна уу.');
-                return false;
-            }
-            //
+        <!-- Гадуур хувцас (Outerwear) Category -->
+        <section class="category-section" id="outerwear-category">
+            <h2 class="category-title">Гадуур хувцас</h2>
+            <div class="products-container" id="outerwear-products">
+                <div class="product" data-keywords="street hoodie black худи outerwear">
+                    <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
+                    <h3>Street Hoodie</h3>
+                    <p class="price">180,000 ₮</p>
+                    <div class="details">
+                        <span class="color">Өнгө: Black</span>
+                        <span class="size">Хэмжээ: S, M, L</span>
+                    </div>
+                </div>
+                <div class="product" data-keywords="burberry winter jacket өвлийн жакет outerwear">
+                    <img src="assets
