@@ -137,8 +137,8 @@
         }
 
         .cart-button img {
-            width: 5px;
-            height: 5px;
+            width: 20px;
+            height: 20px;
         }
 
         .cart-button .cart-badge {
@@ -149,8 +149,8 @@
             color: #fff;
             border-radius: 50%;
             font-size: 0.6em;
-            width: 12px;
-            height: 12px;
+            width: 16px;
+            height: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -216,14 +216,14 @@
             }
 
             .cart-button img {
-                width: 4px;
-                height: 4px;
+                width: 16px;
+                height: 16px;
             }
 
             .cart-button .cart-badge {
                 font-size: 0.5em;
-                width: 10px;
-                height: 10px;
+                width: 14px;
+                height: 14px;
             }
         }
 
@@ -308,8 +308,8 @@
         }
 
         .product img {
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 110%;
+            max-height: 110%;
             width: auto;
             height: auto;
             border-radius: 10px;
@@ -408,6 +408,11 @@
                 height: 130px;
             }
 
+            .product img {
+                max-width: 110%;
+                max-height: 110%;
+            }
+
             .product h3 {
                 font-size: 0.9em;
             }
@@ -434,37 +439,6 @@
                 line-height: 18px;
                 font-size: 0.9em;
             }
-        }
-
-        .cart-icon-container {
-            position: relative;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30px;
-            height: 30px;
-        }
-
-        .cart-icon {
-            width: 5px;
-            height: 5px;
-        }
-
-        .cart-icon .cart-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: #ff4d4d;
-            color: #fff;
-            border-radius: 50%;
-            font-size: 0.6em;
-            width: 12px;
-            height: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
         }
 
         .cart-modal {
@@ -518,7 +492,7 @@
         }
 
         .modal-product-info img {
-            max-width: 100%;
+            max-width: 50%;
             border-radius: 10px;
             margin-bottom: 10px;
         }
@@ -711,7 +685,7 @@
             margin-bottom: 15px;
         }
 
-        .checkout-btn {
+        .checkout-btn, .clear-cart-btn, .continue-btn {
             width: 100%;
             padding: 12px;
             background: #1a1f4a;
@@ -722,10 +696,27 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease;
+            margin-bottom: 10px;
         }
 
-        .checkout-btn:hover {
+        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover {
             background: #222A72;
+        }
+
+        .clear-cart-btn {
+            background: #ff4d4d;
+        }
+
+        .clear-cart-btn:hover {
+            background: #cc0000;
+        }
+
+        .continue-btn {
+            background: #2d3a8a;
+        }
+
+        .continue-btn:hover {
+            background: #1a1f4a;
         }
 
         @media (max-width: 600px) {
@@ -751,6 +742,10 @@
             .cart-item-details p {
                 font-size: 0.85em;
             }
+
+            .modal-product-info img {
+                max-width: 50%;
+            }
         }
     </style>
 </head>
@@ -769,10 +764,6 @@
                     <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
                     <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
                 </form>
-                <div class="cart-icon-container" id="cart-icon" aria-label="Сагс харах" role="button" tabindex="0">
-                    <img src="assets/cart.png" alt="Cart icon" class="cart-icon" />
-                    <span class="cart-badge" id="cart-badge">0</span>
-                </div>
                 <div class="cart-button" id="cart-button" aria-label="Сагс руу очих" role="button" tabindex="0">
                     <img src="assets/cart.png" alt="Cart icon" />
                     <span class="cart-badge">0</span>
@@ -956,7 +947,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="size-select">Хэмжээ сонгох:</label>
+                    <label for="size-selectHTML
+                    ">Хэмжээ сонгох:</label>
                     <select id="size-select" name="size" required aria-required="true">
                         <option value="" disabled selected>Хэмжээ сонгоно уу</option>
                     </select>
@@ -979,6 +971,8 @@
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-footer">
             <p class="cart-total">Нийт: <span id="cart-total">0 ₮</span></p>
+            <button class="continue-btn" id="continue-btn">Үргэлжлүүлэн худалдан авах</button>
+            <button class="clear-cart-btn" id="clear-cart">Сагсыг цэвэрлэх</button>
             <button class="checkout-btn" id="checkout-btn">Төлбөр төлөх</button>
         </div>
     </div>
@@ -1007,12 +1001,13 @@
         const sizeSelect = document.getElementById('size-select');
         const quantityInput = document.getElementById('quantity');
         const modalProductInfo = document.getElementById('modal-product-info');
-        const cartIcon = document.getElementById('cart-icon');
         const cartButton = document.getElementById('cart-button');
-        const cartBadge = document.getElementById('cart-badge');
+        const cartBadge = document.querySelector('#cart-button .cart-badge');
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotal = document.getElementById('cart-total');
         const checkoutBtn = document.getElementById('checkout-btn');
+        const clearCartBtn = document.getElementById('clear-cart');
+        const continueBtn = document.getElementById('continue-btn');
         const cartSidebar = document.getElementById('cart-sidebar');
         const cartSidebarClose = document.getElementById('cart-sidebar-close');
         const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
@@ -1029,9 +1024,7 @@
         function updateCartBadge() {
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = itemCount;
-            cartButton.querySelector('.cart-badge').textContent = itemCount;
             cartBadge.style.display = itemCount > 0 ? 'flex' : 'none';
-            cartButton.querySelector('.cart-badge').style.display = itemCount > 0 ? 'flex' : 'none';
             console.log('Cart badge updated:', itemCount);
         }
 
@@ -1115,7 +1108,7 @@
 
                 // Populate modal
                 modalProductInfo.innerHTML = `
-                    <img src="${image}" alt="${name}" style="max-width:100%; border-radius:10px; margin-bottom:10px;">
+                    <img src="${image}" alt="${name}" style="border-radius:10px; margin-bottom:10px;">
                     <h3>${name}</h3>
                     <p>${price}</p>
                 `;
@@ -1182,15 +1175,12 @@
         });
 
         // Open cart sidebar
-        function openCartSidebar() {
+        cartButton.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             cartSidebarOverlay.classList.add('show');
-            renderCartItems(); // Force re-render
+            renderCartItems();
             console.log('Cart sidebar opened');
-        }
-
-        cartIcon.addEventListener('click', openCartSidebar);
-        cartButton.addEventListener('click', openCartSidebar);
+        });
 
         // Close cart sidebar
         cartSidebarClose.addEventListener('click', () => {
@@ -1203,6 +1193,22 @@
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
             console.log('Cart sidebar closed via overlay');
+        });
+
+        // Clear cart
+        clearCartBtn.addEventListener('click', () => {
+            if (confirm('Сагсыг цэвэрлэх үү?')) {
+                cart = [];
+                updateCart();
+                console.log('Cart cleared');
+            }
+        });
+
+        // Continue shopping
+        continueBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartSidebarOverlay.classList.remove('show');
+            console.log('Continue shopping clicked');
         });
 
         // Checkout button (placeholder)
