@@ -47,34 +47,12 @@
             }
         }
 
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .cart-button {
-            background: #1a1f4a;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 12px;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .cart-button:hover {
-            background: #2d3a8a;
-        }
-
         .logo {
             text-align: left;
         }
 
         .logo img {
-            height: 40px;
+            height: 60px;
             width: auto;
         }
 
@@ -148,14 +126,40 @@
             height: 40px;
         }
 
+        .cart-button {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+        }
+
+        .cart-button img {
+            width: 5px;
+            height: 5px;
+        }
+
+        .cart-button .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.6em;
+            width: 12px;
+            height: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
         @media (max-width: 600px) {
             .logo img {
-                height: 30px;
-            }
-
-            .cart-button {
-                padding: 6px 10px;
-                font-size: 0.8em;
+                height: 45px;
             }
 
             .header-nav {
@@ -204,6 +208,22 @@
 
             .search-bar input {
                 width: calc(100% - 40px);
+            }
+
+            .cart-button {
+                width: 25px;
+                height: 25px;
+            }
+
+            .cart-button img {
+                width: 4px;
+                height: 4px;
+            }
+
+            .cart-button .cart-badge {
+                font-size: 0.5em;
+                width: 10px;
+                height: 10px;
             }
         }
 
@@ -424,7 +444,6 @@
             justify-content: center;
             width: 30px;
             height: 30px;
-            order: 2;
         }
 
         .cart-icon {
@@ -432,7 +451,7 @@
             height: 5px;
         }
 
-        .cart-badge {
+        .cart-icon .cart-badge {
             position: absolute;
             top: -5px;
             right: -5px;
@@ -692,7 +711,7 @@
             margin-bottom: 15px;
         }
 
-        .checkout-btn, .clear-cart-btn, .continue-btn {
+        .checkout-btn {
             width: 100%;
             padding: 12px;
             background: #1a1f4a;
@@ -703,27 +722,10 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-bottom: 10px;
         }
 
-        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover {
+        .checkout-btn:hover {
             background: #222A72;
-        }
-
-        .clear-cart-btn {
-            background: #ff4d4d;
-        }
-
-        .clear-cart-btn:hover {
-            background: #cc0000;
-        }
-
-        .continue-btn {
-            background: #2d3a8a;
-        }
-
-        .continue-btn:hover {
-            background: #1a1f4a;
         }
 
         @media (max-width: 600px) {
@@ -735,22 +737,6 @@
             .cart-modal-content {
                 width: 95%;
                 padding: 15px;
-            }
-
-            .cart-icon-container {
-                width: 25px;
-                height: 25px;
-            }
-
-            .cart-icon {
-                width: 4px;
-                height: 4px;
-            }
-
-            .cart-badge {
-                font-size: 0.5em;
-                width: 10px;
-                height: 10px;
             }
 
             .cart-item img {
@@ -770,11 +756,8 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-left">
-            <button class="cart-button" id="cart-button" aria-label="Сагс руу очих">Сагс руу очих</button>
-            <div class="logo">
-                <img src="assets/365.png" alt="365 Logo" loading="lazy" />
-            </div>
+        <div class="logo">
+            <img src="assets/365.png" alt="365 Logo" loading="lazy" />
         </div>
         <div class="header-nav" id="header-nav">
             <nav class="nav" id="nav">
@@ -789,6 +772,10 @@
                 <div class="cart-icon-container" id="cart-icon" aria-label="Сагс харах" role="button" tabindex="0">
                     <img src="assets/cart.png" alt="Cart icon" class="cart-icon" />
                     <span class="cart-badge" id="cart-badge">0</span>
+                </div>
+                <div class="cart-button" id="cart-button" aria-label="Сагс руу очих" role="button" tabindex="0">
+                    <img src="assets/cart.png" alt="Cart icon" />
+                    <span class="cart-badge">0</span>
                 </div>
                 <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
                     <i class="fas fa-bars"></i>
@@ -992,8 +979,6 @@
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-footer">
             <p class="cart-total">Нийт: <span id="cart-total">0 ₮</span></p>
-            <button class="continue-btn" id="continue-btn">Үргэлжлүүлэн худалдан авах</button>
-            <button class="clear-cart-btn" id="clear-cart">Сагсыг цэвэрлэх</button>
             <button class="checkout-btn" id="checkout-btn">Төлбөр төлөх</button>
         </div>
     </div>
@@ -1025,14 +1010,12 @@
         const cartIcon = document.getElementById('cart-icon');
         const cartButton = document.getElementById('cart-button');
         const cartBadge = document.getElementById('cart-badge');
-        const cartSidebar = document.getElementById('cart-sidebar');
-        const cartSidebarClose = document.getElementById('cart-sidebar-close');
-        const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotal = document.getElementById('cart-total');
         const checkoutBtn = document.getElementById('checkout-btn');
-        const clearCartBtn = document.getElementById('clear-cart');
-        const continueBtn = document.getElementById('continue-btn');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartSidebarClose = document.getElementById('cart-sidebar-close');
+        const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
 
         // Initialize cart
         function updateCart() {
@@ -1046,7 +1029,9 @@
         function updateCartBadge() {
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = itemCount;
+            cartButton.querySelector('.cart-badge').textContent = itemCount;
             cartBadge.style.display = itemCount > 0 ? 'flex' : 'none';
+            cartButton.querySelector('.cart-badge').style.display = itemCount > 0 ? 'flex' : 'none';
             console.log('Cart badge updated:', itemCount);
         }
 
@@ -1218,22 +1203,6 @@
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
             console.log('Cart sidebar closed via overlay');
-        });
-
-        // Clear cart
-        clearCartBtn.addEventListener('click', () => {
-            if (confirm('Сагсыг цэвэрлэх үү?')) {
-                cart = [];
-                updateCart();
-                console.log('Cart cleared');
-            }
-        });
-
-        // Continue shopping
-        continueBtn.addEventListener('click', () => {
-            cartSidebar.classList.remove('open');
-            cartSidebarOverlay.classList.remove('show');
-            console.log('Continue shopping clicked');
         });
 
         // Checkout button (placeholder)
