@@ -47,17 +47,35 @@
             }
         }
 
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-button {
+            background: #1a1f4a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .cart-button:hover {
+            background: #2d3a8a;
+        }
+
         .logo {
             text-align: left;
-            margin-left: 5px;
-            margin-top: 0;
         }
 
         .logo img {
-            font-family: 'Playfair Display', serif;
             height: 40px;
             width: auto;
-            margin: 0;
         }
 
         .header-nav {
@@ -75,18 +93,13 @@
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-        }
-
-        .nav a:hover {
-            /* No change on hover */
+            padding: 0 10px;
         }
 
         .search-menu-container {
             display: flex;
             align-items: center;
             gap: 15px;
-            position: relative;
-            top: 4px;
         }
 
         .search-bar {
@@ -124,14 +137,6 @@
             padding: 0 5px;
         }
 
-        .search-bar:hover {
-            /* No change on hover */
-        }
-
-        .search-bar button:hover {
-            /* No change on hover */
-        }
-
         .menu-toggle {
             font-size: 1.8em;
             cursor: pointer;
@@ -141,13 +146,16 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            position: relative;
-            top: 4px;
         }
 
         @media (max-width: 600px) {
             .logo img {
                 height: 30px;
+            }
+
+            .cart-button {
+                padding: 6px 10px;
+                font-size: 0.8em;
             }
 
             .header-nav {
@@ -188,8 +196,6 @@
                 margin-top: 15px;
                 justify-content: flex-start;
                 align-items: center;
-                top: 0;
-                position: static;
             }
 
             .search-bar {
@@ -198,11 +204,6 @@
 
             .search-bar input {
                 width: calc(100% - 40px);
-            }
-
-            .menu-toggle {
-                top: 0;
-                position: static;
             }
         }
 
@@ -233,7 +234,6 @@
             overflow-x: auto;
             gap: 20px;
             padding-bottom: 10px;
-            -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
             scrollbar-width: thin;
             scrollbar-color: #2d3a8a transparent;
@@ -268,26 +268,22 @@
         .product {
             background: #2d3a8a;
             border-radius: 15px;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             position: relative;
             overflow: hidden;
-            flex: 0 0 200px;
-            width: 200px;
-            height: 300px;
+            flex: 0 0 300px;
+            width: 300px;
+            height: 360px;
             vertical-align: top;
             display: inline-block;
-        }
-
-        .product:hover {
-            /* No change on hover */
         }
 
         .product-image-container {
             position: relative;
             width: 100%;
-            height: 150px;
+            height: 180px;
             overflow: hidden;
         }
 
@@ -304,31 +300,34 @@
             margin: 0 auto;
         }
 
-        .product img:hover {
-            /* No change on hover */
-        }
-
-        .product-cart-icon {
+        .product-plus {
             position: absolute;
             top: 5px;
             right: 5px;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 1em;
+            color: #fff;
             background: rgba(0, 0, 0, 0.5);
             border-radius: 50%;
-            padding: 5px;
+            cursor: pointer;
             transition: background 0.3s ease;
         }
 
-        .product-cart-icon:hover {
+        .product-plus:hover {
             background: #1a1f4a;
         }
 
+        .product-details {
+            margin-top: 10px;
+        }
+
         .product h3 {
-            margin: 10px 0 5px;
+            margin: 8px 0;
             color: #fff;
-            font-size: 0.95em;
+            font-size: 1em;
             font-weight: 600;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -336,13 +335,13 @@
         }
 
         .product .price {
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: #ccc;
             font-weight: 600;
         }
 
         .product .details {
-            font-size: 0.75em;
+            font-size: 0.8em;
             color: #aaa;
             margin: 5px 0 0;
             font-weight: 500;
@@ -378,23 +377,19 @@
             font-size: 1.2em;
         }
 
-        .social-links a:hover {
-            /* No change on hover */
-        }
-
         @media (max-width: 600px) {
             .product {
-                flex: 0 0 160px;
-                width: 160px;
-                height: 240px;
+                flex: 0 0 220px;
+                width: 220px;
+                height: 280px;
             }
 
             .product-image-container {
-                height: 120px;
+                height: 130px;
             }
 
             .product h3 {
-                font-size: 0.85em;
+                font-size: 0.9em;
             }
 
             .product .price {
@@ -412,23 +407,29 @@
             .category-title {
                 font-size: 1.5em;
             }
+
+            .product-plus {
+                width: 18px;
+                height: 18px;
+                line-height: 18px;
+                font-size: 0.9em;
+            }
         }
 
-        /* Cart Icon */
         .cart-icon-container {
             position: relative;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
             order: 2;
         }
 
         .cart-icon {
-            width: 24px;
-            height: 24px;
+            width: 5px;
+            height: 5px;
         }
 
         .cart-badge {
@@ -438,23 +439,15 @@
             background: #ff4d4d;
             color: #fff;
             border-radius: 50%;
-            font-size: 0.7em;
-            width: 18px;
-            height: 18px;
+            font-size: 0.6em;
+            width: 12px;
+            height: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            animation: pulse 0.5s ease-in-out;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Cart Modal */
         .cart-modal {
             display: none;
             position: fixed;
@@ -505,6 +498,12 @@
             text-align: center;
         }
 
+        .modal-product-info img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
         .modal-product-info h3 {
             color: #fff;
             font-size: 1.3em;
@@ -527,7 +526,7 @@
             margin-bottom: 5px;
         }
 
-        .form-group select {
+        .form-group select, .form-group input {
             width: 100%;
             padding: 8px;
             border: none;
@@ -537,7 +536,7 @@
             font-size: 1em;
         }
 
-        .form-group select:focus {
+        .form-group select:focus, .form-group input:focus {
             outline: none;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
@@ -559,17 +558,16 @@
             background: #222A72;
         }
 
-        /* Cart Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
             right: 0;
-            width: 300px;
+            width: 320px;
             height: 100%;
             background: #222A72;
             z-index: 1003;
             transform: translateX(100%);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
             box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
@@ -630,10 +628,10 @@
         }
 
         .cart-item img {
-            width: 60px;
+            width: 70px;
             height: auto;
             border-radius: 5px;
-            margin-right: 10px;
+            margin-right: 15px;
         }
 
         .cart-item-details {
@@ -642,13 +640,14 @@
         }
 
         .cart-item-details h3 {
-            font-size: 1em;
+            font-size: 1.1em;
             margin-bottom: 5px;
         }
 
         .cart-item-details p {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #ccc;
+            margin: 3px 0;
         }
 
         .cart-item-controls {
@@ -661,11 +660,11 @@
             background: none;
             border: 1px solid #fff;
             color: #fff;
-            width: 25px;
-            height: 25px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 1em;
         }
 
         .cart-item-controls .quantity {
@@ -677,7 +676,7 @@
             background: none;
             border: none;
             color: #ff4d4d;
-            font-size: 1.2em;
+            font-size: 1.3em;
             cursor: pointer;
         }
 
@@ -687,15 +686,15 @@
         }
 
         .cart-total {
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 600;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .checkout-btn {
+        .checkout-btn, .clear-cart-btn, .continue-btn {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #1a1f4a;
             color: #fff;
             border: none;
@@ -704,17 +703,33 @@
             font-weight: 600;
             cursor: pointer;
             transition: background 0.3s ease;
+            margin-bottom: 10px;
         }
 
-        .checkout-btn:hover {
+        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover {
             background: #222A72;
         }
 
-        /* Responsive Design */
+        .clear-cart-btn {
+            background: #ff4d4d;
+        }
+
+        .clear-cart-btn:hover {
+            background: #cc0000;
+        }
+
+        .continue-btn {
+            background: #2d3a8a;
+        }
+
+        .continue-btn:hover {
+            background: #1a1f4a;
+        }
+
         @media (max-width: 600px) {
             .cart-sidebar {
                 width: 100%;
-                max-width: 280px;
+                max-width: 300px;
             }
 
             .cart-modal-content {
@@ -723,27 +738,43 @@
             }
 
             .cart-icon-container {
-                width: 35px;
-                height: 35px;
+                width: 25px;
+                height: 25px;
             }
 
             .cart-icon {
-                width: 20px;
-                height: 20px;
+                width: 4px;
+                height: 4px;
             }
 
             .cart-badge {
-                font-size: 0.6em;
-                width: 16px;
-                height: 16px;
+                font-size: 0.5em;
+                width: 10px;
+                height: 10px;
+            }
+
+            .cart-item img {
+                width: 50px;
+                margin-right: 10px;
+            }
+
+            .cart-item-details h3 {
+                font-size: 1em;
+            }
+
+            .cart-item-details p {
+                font-size: 0.85em;
             }
         }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="logo">
-            <img src="assets/365.png" alt="365 Logo" loading="lazy" />
+        <div class="header-left">
+            <button class="cart-button" id="cart-button" aria-label="Сагс руу очих">Сагс руу очих</button>
+            <div class="logo">
+                <img src="assets/365.png" alt="365 Logo" loading="lazy" />
+            </div>
         </div>
         <div class="header-nav" id="header-nav">
             <nav class="nav" id="nav">
@@ -755,12 +786,12 @@
                     <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
                     <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
                 </form>
-                <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
-                    <i class="fas fa-bars"></i>
-                </div>
                 <div class="cart-icon-container" id="cart-icon" aria-label="Сагс харах" role="button" tabindex="0">
                     <img src="assets/cart.png" alt="Cart icon" class="cart-icon" />
                     <span class="cart-badge" id="cart-badge">0</span>
+                </div>
+                <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
+                    <i class="fas fa-bars"></i>
                 </div>
             </div>
         </div>
@@ -776,13 +807,15 @@
                 <div class="product" data-keywords="baggy jeans dark blue өмд жинс">
                     <div class="product-image-container">
                         <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Baggy Jeans</h3>
-                    <p class="price">120,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Dark Blue</span>
-                        <span class="size">Хэмжээ: M, L, XL</span>
+                    <div class="product-details">
+                        <h3>Baggy Jeans</h3>
+                        <p class="price">120,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Dark Blue</span>
+                            <span class="size">Хэмжээ: M, L, XL</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -795,37 +828,43 @@
                 <div class="product" data-keywords="backpack black цүнх арын цүнх">
                     <div class="product-image-container">
                         <img src="assets/baraa11.png" alt="Backpack - Хар өнгөтэй арын цүнх" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Backpack</h3>
-                    <p class="price">85,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Black</span>
-                        <span class="size">Хэмжээ: One Size</span>
+                    <div class="product-details">
+                        <h3>Backpack</h3>
+                        <p class="price">85,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Black</span>
+                            <span class="size">Хэмжээ: One Size</span>
+                        </div>
                     </div>
                 </div>
                 <div class="product" data-keywords="tote bag brown цүнх гар цүнх">
                     <div class="product-image-container">
                         <img src="assets/baraa12.png" alt="Tote Bag - Бор өнгөтэй гар цүнх" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Tote Bag</h3>
-                    <p class="price">45,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Brown</span>
-                        <span class="size">Хэмжээ: Medium</span>
+                    <div class="product-details">
+                        <h3>Tote Bag</h3>
+                        <p class="price">45,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Brown</span>
+                            <span class="size">Хэмжээ: Medium</span>
+                        </div>
                     </div>
                 </div>
                 <div class="product" data-keywords="crossbody bag blue цүнх хөндлөн цүнх">
                     <div class="product-image-container">
                         <img src="assets/baraa13.png" alt="Crossbody Bag - Цэнхэр өнгөтэй хөндлөн цүнх" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Crossbody Bag</h3>
-                    <p class="price">60,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Blue</span>
-                        <span class="size">Хэмжээ: Small</span>
+                    <div class="product-details">
+                        <h3>Crossbody Bag</h3>
+                        <p class="price">60,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Blue</span>
+                            <span class="size">Хэмжээ: Small</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -838,49 +877,57 @@
                 <div class="product" data-keywords="casual shirt white цамц">
                     <div class="product-image-container">
                         <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Casual Shirt</h3>
-                    <p class="price">95,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: White</span>
-                        <span class="size">Хэмжээ: S, M, L</span>
+                    <div class="product-details">
+                        <h3>Casual Shirt</h3>
+                        <p class="price">95,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: White</span>
+                            <span class="size">Хэмжээ: S, M, L</span>
+                        </div>
                     </div>
                 </div>
                 <div class="product" data-keywords="trench coat tee black blue цамц tee">
                     <div class="product-image-container">
                         <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Trench Coat Tee</h3>
-                    <p class="price">79,900 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Black, Blue</span>
-                        <span class="size">Хэмжээ: S, M, L</span>
+                    <div class="product-details">
+                        <h3>Trench Coat Tee</h3>
+                        <p class="price">79,900 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Black, Blue</span>
+                            <span class="size">Хэмжээ: S, M, L</span>
+                        </div>
                     </div>
                 </div>
                 <div class="product" data-keywords="y2k long sleeve black white цамц sleeve">
                     <div class="product-image-container">
                         <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Y2K Long Sleeve</h3>
-                    <p class="price">29,900 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Black, White</span>
-                        <span class="size">Хэмжээ: S, M, L, XL</span>
+                    <div class="product-details">
+                        <h3>Y2K Long Sleeve</h3>
+                        <p class="price">29,900 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Black, White</span>
+                            <span class="size">Хэмжээ: S, M, L, XL</span>
+                        </div>
                     </div>
                 </div>
                 <div class="product" data-keywords="baby tee black white grey pink цамц tee">
                     <div class="product-image-container">
                         <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Baby Tee</h3>
-                    <p class="price">12,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Black, White, Grey, Pink</span>
-                        <span class="size">Хэмжээ: S, M, L, XL</span>
+                    <div class="product-details">
+                        <h3>Baby Tee</h3>
+                        <p class="price">12,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Black, White, Grey, Pink</span>
+                            <span class="size">Хэмжээ: S, M, L, XL</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -893,13 +940,15 @@
                 <div class="product" data-keywords="street hoodie black худи outerwear">
                     <div class="product-image-container">
                         <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
-                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
                     </div>
-                    <h3>Street Hoodie</h3>
-                    <p class="price">180,000 ₮</p>
-                    <div class="details">
-                        <span class="color">Өнгө: Black</span>
-                        <span class="size">Хэмжээ: S, M, L</span>
+                    <div class="product-details">
+                        <h3>Street Hoodie</h3>
+                        <p class="price">180,000 ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: Black</span>
+                            <span class="size">Хэмжээ: S, M, L</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -925,6 +974,10 @@
                         <option value="" disabled selected>Хэмжээ сонгоно уу</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="quantity">Тоо ширхэг:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" required aria-required="true">
+                </div>
                 <button type="submit" class="add-to-cart-btn">Сагсанд нэмэх</button>
             </form>
         </div>
@@ -939,6 +992,8 @@
         <div class="cart-items" id="cart-items"></div>
         <div class="cart-footer">
             <p class="cart-total">Нийт: <span id="cart-total">0 ₮</span></p>
+            <button class="continue-btn" id="continue-btn">Үргэлжлүүлэн худалдан авах</button>
+            <button class="clear-cart-btn" id="clear-cart">Сагсыг цэвэрлэх</button>
             <button class="checkout-btn" id="checkout-btn">Төлбөр төлөх</button>
         </div>
     </div>
@@ -965,8 +1020,10 @@
         const cartForm = document.getElementById('cart-form');
         const colorSelect = document.getElementById('color-select');
         const sizeSelect = document.getElementById('size-select');
+        const quantityInput = document.getElementById('quantity');
         const modalProductInfo = document.getElementById('modal-product-info');
         const cartIcon = document.getElementById('cart-icon');
+        const cartButton = document.getElementById('cart-button');
         const cartBadge = document.getElementById('cart-badge');
         const cartSidebar = document.getElementById('cart-sidebar');
         const cartSidebarClose = document.getElementById('cart-sidebar-close');
@@ -974,24 +1031,23 @@
         const cartItemsContainer = document.getElementById('cart-items');
         const cartTotal = document.getElementById('cart-total');
         const checkoutBtn = document.getElementById('checkout-btn');
+        const clearCartBtn = document.getElementById('clear-cart');
+        const continueBtn = document.getElementById('continue-btn');
 
         // Initialize cart
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartBadge();
             renderCartItems();
+            console.log('Cart updated:', cart);
         }
 
         // Update cart badge
         function updateCartBadge() {
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = itemCount;
-            if (itemCount > 0) {
-                cartBadge.style.animation = 'pulse 0.5s ease-in-out';
-                setTimeout(() => {
-                    cartBadge.style.animation = '';
-                }, 500);
-            }
+            cartBadge.style.display = itemCount > 0 ? 'flex' : 'none';
+            console.log('Cart badge updated:', itemCount);
         }
 
         // Render cart items
@@ -1003,8 +1059,9 @@
                 cartItemsContainer.innerHTML = '<p style="text-align: center; color: #ccc;">Сагс хоосон байна.</p>';
             } else {
                 cart.forEach((item, index) => {
-                    const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
-                    total += price * item.quantity;
+                    const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
+                    const subtotal = itemPrice * item.quantity;
+                    total += subtotal;
 
                     const cartItem = document.createElement('div');
                     cartItem.classList.add('cart-item');
@@ -1014,7 +1071,7 @@
                             <h3>${item.name}</h3>
                             <p>Өнгө: ${item.color}</p>
                             <p>Хэмжээ: ${item.size}</p>
-                            <p>${item.price} x ${item.quantity}</p>
+                            <p>${item.price} x ${item.quantity} = ${subtotal.toLocaleString()} ₮</p>
                         </div>
                         <div class="cart-item-controls">
                             <button class="decrease-quantity" data-index="${index}">-</button>
@@ -1029,10 +1086,10 @@
 
             cartTotal.textContent = `${total.toLocaleString()} ₮`;
 
-            // Add event listeners for quantity controls and remove buttons
+            // Re-attach event listeners
             document.querySelectorAll('.decrease-quantity').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const index = btn.dataset.index;
+                    const index = parseInt(btn.dataset.index);
                     if (cart[index].quantity > 1) {
                         cart[index].quantity--;
                     } else {
@@ -1044,7 +1101,7 @@
 
             document.querySelectorAll('.increase-quantity').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const index = btn.dataset.index;
+                    const index = parseInt(btn.dataset.index);
                     cart[index].quantity++;
                     updateCart();
                 });
@@ -1052,25 +1109,28 @@
 
             document.querySelectorAll('.cart-item-remove').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    const index = btn.dataset.index;
+                    const index = parseInt(btn.dataset.index);
                     cart.splice(index, 1);
                     updateCart();
                 });
             });
+
+            console.log('Cart items rendered:', cartItemsContainer.innerHTML);
         }
 
         // Open cart modal
-        document.querySelectorAll('.product-cart-icon').forEach(icon => {
-            icon.addEventListener('click', () => {
-                const product = icon.closest('.product');
+        document.querySelectorAll('.product-plus').forEach(plus => {
+            plus.addEventListener('click', () => {
+                const product = plus.closest('.product');
                 const name = product.querySelector('h3').textContent;
                 const price = product.querySelector('.price').textContent;
-                const image = product.querySelector('.product-image-container img:not(.product-cart-icon)').src;
+                const image = product.querySelector('.product-image-container img').src;
                 const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
                 const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
 
                 // Populate modal
                 modalProductInfo.innerHTML = `
+                    <img src="${image}" alt="${name}" style="max-width:100%; border-radius:10px; margin-bottom:10px;">
                     <h3>${name}</h3>
                     <p>${price}</p>
                 `;
@@ -1088,81 +1148,113 @@
                     option.textContent = size;
                     sizeSelect.appendChild(option);
                 });
+                quantityInput.value = 1;
 
                 cartModal.classList.add('show');
+                console.log('Modal opened for product:', name);
             });
         });
 
         // Close cart modal
         modalClose.addEventListener('click', () => {
             cartModal.classList.remove('show');
+            console.log('Modal closed');
         });
 
         // Handle form submission
         cartForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const product = cartModal.querySelector('.modal-product-info h3').textContent;
+            const name = cartModal.querySelector('.modal-product-info h3').textContent;
             const price = cartModal.querySelector('.modal-product-info p').textContent;
             const color = colorSelect.value;
             const size = sizeSelect.value;
-            const image = cartModal.querySelector('.modal-product-info').previousElementSibling.querySelector('img:not(.product-cart-icon)')?.src || '';
+            const quantity = parseInt(quantityInput.value);
+            const image = cartModal.querySelector('.modal-product-info img').src;
 
-            if (!color || !size) {
-                alert('Өнгө болон хэмжээ сонгоно уу!');
+            if (!color || !size || quantity < 1) {
+                alert('Өнгө, хэмжээ болон тоо ширхэг сонгоно уу!');
                 return;
             }
 
-            const existingItem = cart.find(item => item.name === product && item.color === color && item.size === size);
+            const existingItem = cart.find(item => item.name === name && item.color === color && item.size === size);
             if (existingItem) {
-                existingItem.quantity++;
+                existingItem.quantity += quantity;
             } else {
                 cart.push({
-                    name: product,
+                    name: name,
                     price: price,
                     color: color,
                     size: size,
                     image: image,
-                    quantity: 1
+                    quantity: quantity
                 });
             }
 
             updateCart();
             cartModal.classList.remove('show');
+            alert('Бүтээгдэхүүн сагсанд нэмэгдлээ!');
+            console.log('Item added to cart:', { name, color, size, quantity });
         });
 
         // Open cart sidebar
-        cartIcon.addEventListener('click', () => {
+        function openCartSidebar() {
             cartSidebar.classList.add('open');
             cartSidebarOverlay.classList.add('show');
-        });
+            renderCartItems(); // Force re-render
+            console.log('Cart sidebar opened');
+        }
+
+        cartIcon.addEventListener('click', openCartSidebar);
+        cartButton.addEventListener('click', openCartSidebar);
 
         // Close cart sidebar
         cartSidebarClose.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
+            console.log('Cart sidebar closed');
         });
 
         cartSidebarOverlay.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
+            console.log('Cart sidebar closed via overlay');
+        });
+
+        // Clear cart
+        clearCartBtn.addEventListener('click', () => {
+            if (confirm('Сагсыг цэвэрлэх үү?')) {
+                cart = [];
+                updateCart();
+                console.log('Cart cleared');
+            }
+        });
+
+        // Continue shopping
+        continueBtn.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartSidebarOverlay.classList.remove('show');
+            console.log('Continue shopping clicked');
         });
 
         // Checkout button (placeholder)
         checkoutBtn.addEventListener('click', () => {
             alert('Төлбөрийн үйлдэл хийгдээгүй байна. Энэ бол жишээ юм.');
+            console.log('Checkout clicked');
         });
 
         // Initialize cart on page load
         updateCart();
+        console.log('Initial cart state:', cart);
 
-        // Existing menu toggle logic
+        // Menu toggle logic
         const menuToggle = document.getElementById('menu-toggle');
         const headerNav = document.getElementById('header-nav');
         menuToggle.addEventListener('click', () => {
             headerNav.classList.toggle('open');
+            console.log('Menu toggled');
         });
 
-        // Existing search function
+        // Search function
         function handleSearch(event) {
             event.preventDefault();
             const searchInput = document.getElementById('search-input').value.toLowerCase();
@@ -1181,6 +1273,7 @@
             });
 
             noResults.classList.toggle('show', !hasResults && searchInput !== '');
+            console.log('Search performed:', searchInput);
             return false;
         }
     </script>
