@@ -15,7 +15,6 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            /* CHANGE: Updated theme to #222A72 (dark blue-purple) gradient shades */
             background: linear-gradient(135deg, #1a1f4a 0%, #222A72 50%, #2d3a8a 100%);
             color: #fff;
             line-height: 1.6;
@@ -26,7 +25,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            /* CHANGE: Header background to theme color #222A72 */
             background: #222A72;
             color: #fff;
             padding: 10px 20px;
@@ -55,13 +53,11 @@
             margin-top: 0;
         }
 
-        /* CHANGE: Removed glow (drop-shadow) and hover scale for static logo */
         .logo img {
             font-family: 'Playfair Display', serif;
-            height: 40px; /* Adjust height as needed for your 365.png */
-            width: auto; /* Maintain aspect ratio */
+            height: 40px;
+            width: auto;
             margin: 0;
-            /* No transition or hover effects */
         }
 
         .header-nav {
@@ -79,7 +75,6 @@
             color: #fff;
             text-decoration: none;
             font-weight: 600;
-            /* CHANGE: Removed hover color change - static white */
         }
 
         .nav a:hover {
@@ -97,11 +92,9 @@
         .search-bar {
             display: flex;
             align-items: center;
-            /* CHANGE: Search bar background to theme shade */
-            background: #2d3a8a; /* Lighter shade of #222A72 */
+            background: #2d3a8a;
             border-radius: 25px;
             padding: 4px 10px;
-            /* CHANGE: Removed hover background change - static */
             width: 160px;
             font-size: 0.9em;
         }
@@ -129,7 +122,6 @@
             font-size: 1em;
             cursor: pointer;
             padding: 0 5px;
-            /* CHANGE: Removed hover color change - static white */
         }
 
         .search-bar:hover {
@@ -155,14 +147,13 @@
 
         @media (max-width: 600px) {
             .logo img {
-                height: 30px; /* Smaller on mobile */
+                height: 30px;
             }
 
             .header-nav {
                 position: fixed;
                 top: 60px;
                 right: 0;
-                /* CHANGE: Mobile nav background to theme color */
                 background: #222A72;
                 height: calc(100vh - 60px);
                 width: 200px;
@@ -275,60 +266,94 @@
         }
 
         .product {
-            /* CHANGE: Product background to theme shade */
-            background: #2d3a8a; /* Lighter shade of #222A72 */
+            background: #2d3a8a;
             border-radius: 15px;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            /* CHANGE: Removed hover transform and box-shadow change - static */
             position: relative;
             overflow: hidden;
-            flex: 0 0 220px;
-            width: 220px;
+            flex: 0 0 200px;
+            width: 200px;
+            height: 300px;
             vertical-align: top;
             display: inline-block;
         }
 
         .product:hover {
-            /* No change on hover - same dimensions and style */
+            /* No change on hover */
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
         }
 
         .product img {
             max-width: 100%;
+            max-height: 100%;
+            width: auto;
             height: auto;
             border-radius: 10px;
-            /* CHANGE: Removed hover transform and filter - static */
             user-select: none;
             -webkit-user-drag: none;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
         }
 
         .product img:hover {
             /* No change on hover */
         }
 
+        .product-cart-icon {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .product-cart-icon:hover {
+            background: #1a1f4a;
+        }
+
         .product h3 {
-            margin: 15px 0 10px;
+            margin: 10px 0 5px;
             color: #fff;
-            font-size: 1.3em;
-            font-weight: 700;
+            font-size: 0.95em;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .product .price {
-            font-size: 1em;
+            font-size: 0.85em;
             color: #ccc;
             font-weight: 600;
         }
 
         .product .details {
-            font-size: 0.9em;
+            font-size: 0.75em;
             color: #aaa;
             margin: 5px 0 0;
             font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
 
         .footer {
-            /* CHANGE: Footer background to theme color */
             background: #222A72;
             color: #fff;
             text-align: center;
@@ -351,7 +376,6 @@
             margin: 0 15px;
             text-decoration: none;
             font-size: 1.2em;
-            /* CHANGE: Removed hover color and transform - static */
         }
 
         .social-links a:hover {
@@ -360,8 +384,25 @@
 
         @media (max-width: 600px) {
             .product {
-                flex: 0 0 180px;
-                width: 180px;
+                flex: 0 0 160px;
+                width: 160px;
+                height: 240px;
+            }
+
+            .product-image-container {
+                height: 120px;
+            }
+
+            .product h3 {
+                font-size: 0.85em;
+            }
+
+            .product .price {
+                font-size: 0.8em;
+            }
+
+            .product .details {
+                font-size: 0.7em;
             }
 
             .products-container {
@@ -372,12 +413,336 @@
                 font-size: 1.5em;
             }
         }
+
+        /* Cart Icon */
+        .cart-icon-container {
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            order: 2;
+        }
+
+        .cart-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4d4d;
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.7em;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .cart-modal.show {
+            display: flex;
+        }
+
+        .cart-modal-content {
+            background: #2d3a8a;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .modal-product-info {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-product-info h3 {
+            color: #fff;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .modal-product-info p {
+            color: #ccc;
+            font-size: 1em;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: #222A72;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 10px;
+            background: #1a1f4a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #222A72;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: #222A72;
+            z-index: 1003;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .cart-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+        }
+
+        .cart-sidebar-overlay.show {
+            display: block;
+        }
+
+        .cart-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #2d3a8a;
+        }
+
+        .cart-sidebar-header h2 {
+            color: #fff;
+            font-size: 1.5em;
+        }
+
+        .cart-sidebar-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #2d3a8a;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            color: #fff;
+        }
+
+        .cart-item-details h3 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-controls button {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .cart-item-controls .quantity {
+            font-size: 1em;
+            color: #fff;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 15px;
+            border-top: 1px solid #2d3a8a;
+        }
+
+        .cart-total {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 10px;
+            background: #1a1f4a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background: #222A72;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .cart-sidebar {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .cart-modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .cart-icon-container {
+                width: 35px;
+                height: 35px;
+            }
+
+            .cart-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            .cart-badge {
+                font-size: 0.6em;
+                width: 16px;
+                height: 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="logo">
-            <!-- Logo image (no glow or hover effects) -->
             <img src="assets/365.png" alt="365 Logo" loading="lazy" />
         </div>
         <div class="header-nav" id="header-nav">
@@ -393,12 +758,15 @@
                 <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
                     <i class="fas fa-bars"></i>
                 </div>
+                <div class="cart-icon-container" id="cart-icon" aria-label="Сагс харах" role="button" tabindex="0">
+                    <img src="assets/cart.png" alt="Cart icon" class="cart-icon" />
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </div>
             </div>
         </div>
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны ангилал">
-
         <div class="no-results" id="no-results">Үр дүн олдсонгүй. Өөр үг туршиж үзнэ үү.</div>
 
         <!-- Өмд (Pants) Category -->
@@ -406,7 +774,10 @@
             <h2 class="category-title">Өмд</h2>
             <div class="products-container" id="pants-products">
                 <div class="product" data-keywords="baggy jeans dark blue өмд жинс">
-                    <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Baggy Jeans</h3>
                     <p class="price">120,000 ₮</p>
                     <div class="details">
@@ -422,7 +793,10 @@
             <h2 class="category-title">Цүнх</h2>
             <div class="products-container" id="bags-products">
                 <div class="product" data-keywords="backpack black цүнх арын цүнх">
-                    <img src="assets/baraa11.png" alt="Backpack - Хар өнгөтэй арын цүнх" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa11.png" alt="Backpack - Хар өнгөтэй арын цүнх" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Backpack</h3>
                     <p class="price">85,000 ₮</p>
                     <div class="details">
@@ -431,7 +805,10 @@
                     </div>
                 </div>
                 <div class="product" data-keywords="tote bag brown цүнх гар цүнх">
-                    <img src="assets/baraa12.png" alt="Tote Bag - Бор өнгөтэй гар цүнх" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa12.png" alt="Tote Bag - Бор өнгөтэй гар цүнх" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Tote Bag</h3>
                     <p class="price">45,000 ₮</p>
                     <div class="details">
@@ -440,7 +817,10 @@
                     </div>
                 </div>
                 <div class="product" data-keywords="crossbody bag blue цүнх хөндлөн цүнх">
-                    <img src="assets/baraa13.png" alt="Crossbody Bag - Цэнхэр өнгөтэй хөндлөн цүнх" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa13.png" alt="Crossbody Bag - Цэнхэр өнгөтэй хөндлөн цүнх" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Crossbody Bag</h3>
                     <p class="price">60,000 ₮</p>
                     <div class="details">
@@ -456,7 +836,10 @@
             <h2 class="category-title">Цамц</h2>
             <div class="products-container" id="shirts-products">
                 <div class="product" data-keywords="casual shirt white цамц">
-                    <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Casual Shirt</h3>
                     <p class="price">95,000 ₮</p>
                     <div class="details">
@@ -465,7 +848,10 @@
                     </div>
                 </div>
                 <div class="product" data-keywords="trench coat tee black blue цамц tee">
-                    <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Trench Coat Tee</h3>
                     <p class="price">79,900 ₮</p>
                     <div class="details">
@@ -474,7 +860,10 @@
                     </div>
                 </div>
                 <div class="product" data-keywords="y2k long sleeve black white цамц sleeve">
-                    <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Y2K Long Sleeve</h3>
                     <p class="price">29,900 ₮</p>
                     <div class="details">
@@ -483,7 +872,10 @@
                     </div>
                 </div>
                 <div class="product" data-keywords="baby tee black white grey pink цамц tee">
-                    <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Baby Tee</h3>
                     <p class="price">12,000 ₮</p>
                     <div class="details">
@@ -499,7 +891,10 @@
             <h2 class="category-title">Гадуур хувцас</h2>
             <div class="products-container" id="outerwear-products">
                 <div class="product" data-keywords="street hoodie black худи outerwear">
-                    <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
+                    <div class="product-image-container">
+                        <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
+                        <img src="assets/cart.png" alt="Cart icon" class="product-cart-icon" />
+                    </div>
                     <h3>Street Hoodie</h3>
                     <p class="price">180,000 ₮</p>
                     <div class="details">
@@ -507,5 +902,287 @@
                         <span class="size">Хэмжээ: S, M, L</span>
                     </div>
                 </div>
-                <div class="product" data-keywords="burberry winter jacket өвлийн жакет outerwear">
-                    <img src="assets
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart Modal for Color and Size Selection -->
+    <div class="cart-modal" id="cart-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="cart-modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Модалыг хаах"><i class="fas fa-times"></i></button>
+            <h2 id="modal-title">Бүтээгдэхүүн нэмэх</h2>
+            <div class="modal-product-info" id="modal-product-info"></div>
+            <form id="cart-form">
+                <div class="form-group">
+                    <label for="color-select">Өнгө сонгох:</label>
+                    <select id="color-select" name="color" required aria-required="true">
+                        <option value="" disabled selected>Өнгө сонгоно уу</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="size-select">Хэмжээ сонгох:</label>
+                    <select id="size-select" name="size" required aria-required="true">
+                        <option value="" disabled selected>Хэмжээ сонгоно уу</option>
+                    </select>
+                </div>
+                <button type="submit" class="add-to-cart-btn">Сагсанд нэмэх</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
+        <div class="cart-sidebar-header">
+            <h2>Таны сагс</h2>
+            <button class="cart-sidebar-close" id="cart-sidebar-close" aria-label="Сагсыг хаах"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items"></div>
+        <div class="cart-footer">
+            <p class="cart-total">Нийт: <span id="cart-total">0 ₮</span></p>
+            <button class="checkout-btn" id="checkout-btn">Төлбөр төлөх</button>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar Overlay -->
+    <div class="cart-sidebar-overlay" id="cart-sidebar-overlay" aria-hidden="true"></div>
+
+    <footer class="footer">
+        <p>&copy; 2025 365 - Online Shop. Бүх эрх хуулиар хамгаалагдсан.</p>
+        <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Cart state
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // DOM Elements
+        const cartModal = document.getElementById('cart-modal');
+        const modalClose = document.getElementById('modal-close');
+        const cartForm = document.getElementById('cart-form');
+        const colorSelect = document.getElementById('color-select');
+        const sizeSelect = document.getElementById('size-select');
+        const modalProductInfo = document.getElementById('modal-product-info');
+        const cartIcon = document.getElementById('cart-icon');
+        const cartBadge = document.getElementById('cart-badge');
+        const cartSidebar = document.getElementById('cart-sidebar');
+        const cartSidebarClose = document.getElementById('cart-sidebar-close');
+        const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Initialize cart
+        function updateCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        // Update cart badge
+        function updateCartBadge() {
+            const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartBadge.textContent = itemCount;
+            if (itemCount > 0) {
+                cartBadge.style.animation = 'pulse 0.5s ease-in-out';
+                setTimeout(() => {
+                    cartBadge.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Render cart items
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; color: #ccc;">Сагс хоосон байна.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    const price = parseFloat(item.price.replace(/[^0-9.]/g, ''));
+                    total += price * item.quantity;
+
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" />
+                        <div class="cart-item-details">
+                            <h3>${item.name}</h3>
+                            <p>Өнгө: ${item.color}</p>
+                            <p>Хэмжээ: ${item.size}</p>
+                            <p>${item.price} x ${item.quantity}</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <button class="decrease-quantity" data-index="${index}">-</button>
+                            <span class="quantity">${item.quantity}</span>
+                            <button class="increase-quantity" data-index="${index}">+</button>
+                            <button class="cart-item-remove" data-index="${index}" aria-label="Сагснаас хасах"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+
+            cartTotal.textContent = `${total.toLocaleString()} ₮`;
+
+            // Add event listeners for quantity controls and remove buttons
+            document.querySelectorAll('.decrease-quantity').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = btn.dataset.index;
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    updateCart();
+                });
+            });
+
+            document.querySelectorAll('.increase-quantity').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = btn.dataset.index;
+                    cart[index].quantity++;
+                    updateCart();
+                });
+            });
+
+            document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const index = btn.dataset.index;
+                    cart.splice(index, 1);
+                    updateCart();
+                });
+            });
+        }
+
+        // Open cart modal
+        document.querySelectorAll('.product-cart-icon').forEach(icon => {
+            icon.addEventListener('click', () => {
+                const product = icon.closest('.product');
+                const name = product.querySelector('h3').textContent;
+                const price = product.querySelector('.price').textContent;
+                const image = product.querySelector('.product-image-container img:not(.product-cart-icon)').src;
+                const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
+                const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
+
+                // Populate modal
+                modalProductInfo.innerHTML = `
+                    <h3>${name}</h3>
+                    <p>${price}</p>
+                `;
+                colorSelect.innerHTML = '<option value="" disabled selected>Өнгө сонгоно уу</option>';
+                colors.forEach(color => {
+                    const option = document.createElement('option');
+                    option.value = color;
+                    option.textContent = color;
+                    colorSelect.appendChild(option);
+                });
+                sizeSelect.innerHTML = '<option value="" disabled selected>Хэмжээ сонгоно уу</option>';
+                sizes.forEach(size => {
+                    const option = document.createElement('option');
+                    option.value = size;
+                    option.textContent = size;
+                    sizeSelect.appendChild(option);
+                });
+
+                cartModal.classList.add('show');
+            });
+        });
+
+        // Close cart modal
+        modalClose.addEventListener('click', () => {
+            cartModal.classList.remove('show');
+        });
+
+        // Handle form submission
+        cartForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const product = cartModal.querySelector('.modal-product-info h3').textContent;
+            const price = cartModal.querySelector('.modal-product-info p').textContent;
+            const color = colorSelect.value;
+            const size = sizeSelect.value;
+            const image = cartModal.querySelector('.modal-product-info').previousElementSibling.querySelector('img:not(.product-cart-icon)')?.src || '';
+
+            if (!color || !size) {
+                alert('Өнгө болон хэмжээ сонгоно уу!');
+                return;
+            }
+
+            const existingItem = cart.find(item => item.name === product && item.color === color && item.size === size);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    name: product,
+                    price: price,
+                    color: color,
+                    size: size,
+                    image: image,
+                    quantity: 1
+                });
+            }
+
+            updateCart();
+            cartModal.classList.remove('show');
+        });
+
+        // Open cart sidebar
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            cartSidebarOverlay.classList.add('show');
+        });
+
+        // Close cart sidebar
+        cartSidebarClose.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartSidebarOverlay.classList.remove('show');
+        });
+
+        cartSidebarOverlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartSidebarOverlay.classList.remove('show');
+        });
+
+        // Checkout button (placeholder)
+        checkoutBtn.addEventListener('click', () => {
+            alert('Төлбөрийн үйлдэл хийгдээгүй байна. Энэ бол жишээ юм.');
+        });
+
+        // Initialize cart on page load
+        updateCart();
+
+        // Existing menu toggle logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const headerNav = document.getElementById('header-nav');
+        menuToggle.addEventListener('click', () => {
+            headerNav.classList.toggle('open');
+        });
+
+        // Existing search function
+        function handleSearch(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const products = document.querySelectorAll('.product');
+            const noResults = document.getElementById('no-results');
+            let hasResults = false;
+
+            products.forEach(product => {
+                const keywords = product.getAttribute('data-keywords').toLowerCase();
+                if (keywords.includes(searchInput) || searchInput === '') {
+                    product.style.display = 'inline-block';
+                    hasResults = true;
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            noResults.classList.toggle('show', !hasResults && searchInput !== '');
+            return false;
+        }
+    </script>
+</body>
+</html>
