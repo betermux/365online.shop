@@ -218,7 +218,6 @@
             justify-content: center;
         }
 
-        /* Захиалгын panel */
         .order-modal {
             display: none;
             position: fixed;
@@ -293,6 +292,14 @@
 
         .submit-order-btn:hover {
             background: #222A72;
+        }
+
+        .order-code {
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #fff;
+            font-weight: 600;
         }
 
         @media (min-width: 601px) {
@@ -656,6 +663,7 @@
         <div class="order-modal-content">
             <button class="order-modal-close" id="order-modal-close" aria-label="Захиалгын модалыг хаах"><i class="fas fa-times"></i></button>
             <h2 id="order-modal-title">Захиалгын хэсэг</h2>
+            <div class="order-code" id="order-code">Гүйлгээний код: Хүлээж байна...</div>
             <form id="order-form">
                 <div class="order-form-group">
                     <label for="name">Нэр:</label>
@@ -723,11 +731,9 @@
     </footer>
 
     <script type="module">
-        // Firebase SDK-г импортлох
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
         import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
-        // Firebase тохиргоо
         const firebaseConfig = {
             apiKey: "AIzaSyBvqB1SYZB64yFBFvS0H4iVr5ppN2Pztog",
             authDomain: "shop-a3ca1.firebaseapp.com",
@@ -739,7 +745,6 @@
             measurementId: "G-5NF2P82J4V"
         };
 
-        // Firebase-г эхлүүлэх
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
 
@@ -768,16 +773,37 @@
         const orderModal = document.getElementById('order-modal');
         const orderModalClose = document.getElementById('order-modal-close');
         const orderForm = document.getElementById('order-form');
+        const orderCodeDisplay = document.getElementById('order-code');
 
-        // Хаягийг localStorage-ээс авах
         const savedAddress = JSON.parse(localStorage.getItem('userAddress')) || {};
-
-        // Захиалгын формд хадгалагдсан хаягийг урьдчилан бөглөх
         document.getElementById('name').value = savedAddress.name || '';
         document.getElementById('phone').value = savedAddress.phone || '';
         document.getElementById('city').value = savedAddress.city || '';
         document.getElementById('district').value = savedAddress.district || '';
         document.getElementById('address').value = savedAddress.address || '';
+
+        // Давтагдашгүй код үүсгэх функц
+        function generateOrderCode() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
+                                 letters.charAt(Math.floor(Math.random() * letters.length));
+            let orderNumber = parseInt(localStorage.getItem('orderNumber')) || 10000000;
+            orderNumber++;
+            localStorage.setItem('orderNumber', orderNumber);
+            return `${randomLetters}${orderNumber}`;
+        }
+
+        // Захиалгын модал нээгдэхэд кодыг харуулах
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Таны сагс хоосон байна!');
+                return;
+            }
+            const orderCode = generateOrderCode();
+            orderCodeDisplay.textContent = `Гүйлгээний код: ${orderCode}`;
+            orderModal.classList.add('show');
+            console.log('Checkout clicked, order modal opened with code:', orderCode);
+        });
 
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -946,15 +972,6 @@
             console.log('Continue shopping clicked');
         });
 
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.length === 0) {
-                alert('Таны сагс хоосон байна!');
-                return;
-            }
-            orderModal.classList.add('show');
-            console.log('Checkout clicked, order modal opened');
-        });
-
         orderModalClose.addEventListener('click', () => {
             orderModal.classList.remove('show');
             console.log('Order modal closed');
@@ -973,17 +990,18 @@
                 return;
             }
 
-            // Хаягийг localStorage-д хадгалах
             const userAddress = { name, phone, city, district, address };
             localStorage.setItem('userAddress', JSON.stringify(userAddress));
 
-            // Захиалгын мэдээллийг бэлдэх
             const total = cart.reduce((sum, item) => {
                 const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
                 return sum + itemPrice * item.quantity;
             }, 0);
 
+            const orderCode = orderCodeDisplay.textContent.replace('Гүйлгээний код: ', '');
+
             const orderData = {
+                orderCode,
                 user: {
                     name,
                     phone,
@@ -996,11 +1014,10 @@
                 timestamp: new Date().toISOString()
             };
 
-            // Firebase руу захиалга илгээх
             const ordersRef = ref(database, 'orders');
             push(ordersRef, orderData)
                 .then(() => {
-                    alert('Захиалга амжилттай илгээгдлээ!');
+                    alert(`Захиалга амжилттай илгээгдлээ! Гүйлгээний код: ${orderCode}`);
                     cart = [];
                     updateCart();
                     orderModal.classList.remove('show');
