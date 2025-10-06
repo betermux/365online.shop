@@ -21,7 +21,6 @@
             overflow-x: hidden;
         }
 
-        /* Баннерын загвар */
         .banner {
             width: 100%;
             height: 300px;
@@ -194,7 +193,6 @@
             font-size: 1.2em;
         }
 
-        /* Хайлтын үр дүнгийн panel */
         .search-results-panel {
             display: none;
             position: fixed;
@@ -218,6 +216,83 @@
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
+        }
+
+        /* Захиалгын panel */
+        .order-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .order-modal.show {
+            display: flex;
+        }
+
+        .order-modal-content {
+            background: #2d3a8a;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .order-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .order-form-group {
+            margin-bottom: 15px;
+        }
+
+        .order-form-group label {
+            display: block;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .order-form-group select,
+        .order-form-group input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: #222A72;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .submit-order-btn {
+            width: 100%;
+            padding: 10px;
+            background: #1a1f4a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .submit-order-btn:hover {
+            background: #222A72;
         }
 
         @media (min-width: 601px) {
@@ -280,6 +355,15 @@
             .search-results-panel {
                 top: 60px;
                 padding: 15px;
+            }
+
+            .order-modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+
+            .banner {
+                height: 200px;
             }
         }
 
@@ -352,7 +436,6 @@
             .products-container { gap: 15px; }
             .category-title { font-size: 1.5em; }
             .product-plus { width: 18px; height: 18px; line-height: 18px; font-size: 0.9em; }
-            .banner { height: 200px; }
         }
     </style>
 </head>
@@ -382,12 +465,10 @@
         </div>
     </header>
 
-    <!-- Баннерын хэсэг -->
     <div class="banner">
         <img src="assets/banner.png" alt="Banner Image" loading="lazy" />
     </div>
 
-    <!-- Хайлтын үр дүнгийн panel -->
     <div class="search-results-panel" id="search-results-panel">
         <div class="search-results-container" id="search-results-container"></div>
     </div>
@@ -571,6 +652,51 @@
         </div>
     </div>
 
+    <div class="order-modal" id="order-modal" role="dialog" aria-labelledby="order-modal-title" aria-hidden="true">
+        <div class="order-modal-content">
+            <button class="order-modal-close" id="order-modal-close" aria-label="Захиалгын модалыг хаах"><i class="fas fa-times"></i></button>
+            <h2 id="order-modal-title">Захиалгын хэсэг</h2>
+            <form id="order-form">
+                <div class="order-form-group">
+                    <label for="name">Нэр:</label>
+                    <input type="text" id="name" name="name" required aria-required="true" placeholder="Таны нэр">
+                </div>
+                <div class="order-form-group">
+                    <label for="phone">Утасны дугаар:</label>
+                    <input type="tel" id="phone" name="phone" required aria-required="true" placeholder="Жишээ: 99112233">
+                </div>
+                <div class="order-form-group">
+                    <label for="city">Хот:</label>
+                    <select id="city" name="city" required aria-required="true">
+                        <option value="" disabled selected>Хот сонгоно уу</option>
+                        <option value="Улаанбаатар">Улаанбаатар</option>
+                        <option value="Эрдэнэт">Эрдэнэт</option>
+                        <option value="Дархан">Дархан</option>
+                        <option value="Чойбалсан">Чойбалсан</option>
+                    </select>
+                </div>
+                <div class="order-form-group">
+                    <label for="district">Дүүрэг (Улаанбаатарт бол):</label>
+                    <select id="district" name="district">
+                        <option value="" disabled selected>Дүүрэг сонгоно уу</option>
+                        <option value="Баянзүрх">Баянзүрх</option>
+                        <option value="Сүхбаатар">Сүхбаатар</option>
+                        <option value="Хан-Уул">Хан-Уул</option>
+                        <option value="Баянгол">Баянгол</option>
+                        <option value="Чингэлтэй">Чингэлтэй</option>
+                        <option value="Сонгинохайрхан">Сонгинохайрхан</option>
+                        <option value="Налайх">Налайх</option>
+                    </select>
+                </div>
+                <div class="order-form-group">
+                    <label for="address">Дэлгэрэнгүй хаяг:</label>
+                    <input type="text" id="address" name="address" required aria-required="true" placeholder="Жишээ: 13-р хороолол, 5-р байр, 12">
+                </div>
+                <button type="submit" class="submit-order-btn">Захиалга баталгаажуулах</button>
+            </form>
+        </div>
+    </div>
+
     <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
         <div class="cart-sidebar-header">
             <h2>Таны сагс</h2>
@@ -596,7 +722,27 @@
         </div>
     </footer>
 
-    <script>
+    <script type="module">
+        // Firebase SDK-г импортлох
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+
+        // Firebase тохиргоо
+        const firebaseConfig = {
+            apiKey: "AIzaSyBvqB1SYZB64yFBFvS0H4iVr5ppN2Pztog",
+            authDomain: "shop-a3ca1.firebaseapp.com",
+            databaseURL: "https://shop-a3ca1-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "shop-a3ca1",
+            storageBucket: "shop-a3ca1.firebasestorage.app",
+            messagingSenderId: "524006716045",
+            appId: "1:524006716045:web:2643504eb68c8d29dbe8c4",
+            measurementId: "G-5NF2P82J4V"
+        };
+
+        // Firebase-г эхлүүлэх
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartModal = document.getElementById('cart-modal');
         const modalClose = document.getElementById('modal-close');
@@ -619,6 +765,19 @@
         const headerNav = document.getElementById('header-nav');
         const searchResultsPanel = document.getElementById('search-results-panel');
         const searchResultsContainer = document.getElementById('search-results-container');
+        const orderModal = document.getElementById('order-modal');
+        const orderModalClose = document.getElementById('order-modal-close');
+        const orderForm = document.getElementById('order-form');
+
+        // Хаягийг localStorage-ээс авах
+        const savedAddress = JSON.parse(localStorage.getItem('userAddress')) || {};
+
+        // Захиалгын формд хадгалагдсан хаягийг урьдчилан бөглөх
+        document.getElementById('name').value = savedAddress.name || '';
+        document.getElementById('phone').value = savedAddress.phone || '';
+        document.getElementById('city').value = savedAddress.city || '';
+        document.getElementById('district').value = savedAddress.district || '';
+        document.getElementById('address').value = savedAddress.address || '';
 
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -788,8 +947,71 @@
         });
 
         checkoutBtn.addEventListener('click', () => {
-            alert('Төлбөрийн үйлдэл хийгдээгүй байна. Энэ бол жишээ юм.');
-            console.log('Checkout clicked');
+            if (cart.length === 0) {
+                alert('Таны сагс хоосон байна!');
+                return;
+            }
+            orderModal.classList.add('show');
+            console.log('Checkout clicked, order modal opened');
+        });
+
+        orderModalClose.addEventListener('click', () => {
+            orderModal.classList.remove('show');
+            console.log('Order modal closed');
+        });
+
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            const district = document.getElementById('district').value;
+            const address = document.getElementById('address').value;
+
+            if (!name || !phone || !city || !address) {
+                alert('Бүх талбарыг бөглөнө үү!');
+                return;
+            }
+
+            // Хаягийг localStorage-д хадгалах
+            const userAddress = { name, phone, city, district, address };
+            localStorage.setItem('userAddress', JSON.stringify(userAddress));
+
+            // Захиалгын мэдээллийг бэлдэх
+            const total = cart.reduce((sum, item) => {
+                const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
+                return sum + itemPrice * item.quantity;
+            }, 0);
+
+            const orderData = {
+                user: {
+                    name,
+                    phone,
+                    city,
+                    district,
+                    address
+                },
+                items: cart,
+                total,
+                timestamp: new Date().toISOString()
+            };
+
+            // Firebase руу захиалга илгээх
+            const ordersRef = ref(database, 'orders');
+            push(ordersRef, orderData)
+                .then(() => {
+                    alert('Захиалга амжилттай илгээгдлээ!');
+                    cart = [];
+                    updateCart();
+                    orderModal.classList.remove('show');
+                    cartSidebar.classList.remove('open');
+                    cartSidebarOverlay.classList.remove('show');
+                    console.log('Order sent to Firebase:', orderData);
+                })
+                .catch(error => {
+                    console.error('Firebase error:', error);
+                    alert('Захиалга илгээхэд алдаа гарлаа. Дахин оролдоно уу.');
+                });
         });
 
         menuToggle.addEventListener('click', () => {
@@ -826,7 +1048,6 @@
                 content.style.display = hasResults ? 'none' : 'block';
             }
 
-            // Сагсанд нэмэх товчны event listener-ыг хайлтын үр дүнд дахин холбох
             searchResultsContainer.querySelectorAll('.product-plus').forEach(plus => {
                 plus.addEventListener('click', () => {
                     const product = plus.closest('.product');
