@@ -32,23 +32,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            animation: slideIn 0.6s ease-out;
             height: 60px;
         }
 
         @keyframes slideIn {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .logo {
-            text-align: left;
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .logo img {
@@ -56,25 +45,7 @@
             width: auto;
         }
 
-        .header-nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0 10px;
-        }
-
-        .search-menu-container {
+        .header-panel {
             display: flex;
             align-items: center;
             gap: 15px;
@@ -113,17 +84,9 @@
             font-size: 1em;
             cursor: pointer;
             padding: 0 5px;
-        }
-
-        .menu-toggle {
-            font-size: 1.8em;
-            cursor: pointer;
-            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
         }
 
         .cart-button {
@@ -134,6 +97,7 @@
             justify-content: center;
             width: 30px;
             height: 30px;
+            z-index: 10;
         }
 
         .cart-button img {
@@ -157,57 +121,89 @@
             font-weight: 600;
         }
 
+        .menu-toggle {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            z-index: 10;
+        }
+
+        .header-nav {
+            display: none; /* Анхны байдлаар нуугдана, цэсний товчноос нээгдэнэ */
+            position: fixed;
+            top: 60px;
+            right: 0;
+            background: #222A72;
+            width: 200px;
+            height: calc(100vh - 60px);
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+        }
+
+        .header-nav.open {
+            display: flex;
+            transform: translateX(0);
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 0;
+            font-size: 1.2em;
+        }
+
+        @media (min-width: 601px) {
+            .header-nav {
+                display: flex;
+                position: static;
+                width: auto;
+                height: auto;
+                flex-direction: row;
+                background: none;
+                box-shadow: none;
+                transform: none;
+                padding: 0;
+            }
+
+            .nav {
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .nav a {
+                padding: 0 10px;
+                font-size: 1em;
+            }
+
+            .menu-toggle {
+                display: none; /* Десктоп дээр цэсний товч хэрэггүй */
+            }
+        }
+
         @media (max-width: 600px) {
             .logo img {
                 height: 45px;
             }
 
-            .header-nav {
-                position: fixed;
-                top: 60px;
-                right: 0;
-                background: #222A72;
-                height: calc(100vh - 60px);
-                width: 200px;
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 20px;
-                transform: translateX(100%);
-                transition: transform 0.3s ease;
-                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
-                overflow-y: auto;
-                z-index: 1001;
-            }
-
-            .header-nav.open {
-                transform: translateX(0);
-            }
-
-            .nav {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav a {
-                margin: 15px 0;
-                font-size: 1.2em;
-                width: 100%;
-            }
-
-            .search-menu-container {
-                margin-left: 0;
-                width: 100%;
-                margin-top: 15px;
-                justify-content: flex-start;
-                align-items: center;
-            }
-
             .search-bar {
-                width: 100%;
-            }
-
-            .search-bar input {
-                width: calc(100% - 40px);
+                width: 120px;
             }
 
             .cart-button {
@@ -225,527 +221,82 @@
                 width: 14px;
                 height: 14px;
             }
+
+            .menu-toggle {
+                display: flex;
+            }
         }
 
-        .content {
-            max-width: 1300px;
-            margin: 40px auto;
-            padding: 0 20px 10px;
-            position: relative;
-        }
-
-        .category-section {
-            margin-bottom: 60px;
-        }
-
-        .category-title {
-            font-size: 2em;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid #2d3a8a;
-            padding-bottom: 10px;
-        }
-
-        .products-container {
-            display: flex;
-            flex-wrap: nowrap;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 10px;
-            scroll-behavior: smooth;
-            scrollbar-width: thin;
-            scrollbar-color: #2d3a8a transparent;
-        }
-
-        .products-container::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .products-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .products-container::-webkit-scrollbar-thumb {
-            background: #2d3a8a;
-            border-radius: 4px;
-        }
-
-        .no-results {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            font-size: 1.2em;
-            color: #ccc;
-            width: 100%;
-        }
-
-        .no-results.show {
-            display: block;
-        }
-
-        .product {
-            background: #2d3a8a;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-            flex: 0 0 300px;
-            width: 300px;
-            height: 360px;
-            vertical-align: top;
-            display: inline-block;
-        }
-
-        .product-image-container {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .product img {
-            max-width: 110%;
-            max-height: 110%;
-            width: auto;
-            height: auto;
-            border-radius: 10px;
-            user-select: none;
-            -webkit-user-drag: none;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .product-plus {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
-            text-align: center;
-            font-size: 1em;
-            color: #fff;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .product-plus:hover {
-            background: #1a1f4a;
-        }
-
-        .product-details {
-            margin-top: 10px;
-        }
-
-        .product h3 {
-            margin: 8px 0;
-            color: #fff;
-            font-size: 1em;
-            font-weight: 600;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .product .price {
-            font-size: 0.9em;
-            color: #ccc;
-            font-weight: 600;
-        }
-
-        .product .details {
-            font-size: 0.8em;
-            color: #aaa;
-            margin: 5px 0 0;
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .footer {
-            background: #222A72;
-            color: #fff;
-            text-align: center;
-            padding: 30px;
-            margin-top: 50px;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .social-links {
-            margin-top: 15px;
-        }
-
-        .social-links a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.2em;
-        }
-
+        /* Бусад CSS хэсгүүд хэвээр (товчнуудын харагдацад нөлөөлөхгүй тул богиносголоо) */
+        .content { max-width: 1300px; margin: 40px auto; padding: 0 20px 10px; }
+        .category-section { margin-bottom: 60px; }
+        .category-title { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2d3a8a; padding-bottom: 10px; }
+        .products-container { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 20px; padding-bottom: 10px; scroll-behavior: smooth; }
+        .product { background: #2d3a8a; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); flex: 0 0 300px; width: 300px; height: 360px; display: inline-block; }
+        .product-image-container { position: relative; width: 100%; height: 180px; overflow: hidden; }
+        .product img { max-width: 110%; max-height: 110%; border-radius: 10px; object-fit: contain; display: block; margin: 0 auto; }
+        .product-plus { position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; line-height: 20px; font-size: 1em; color: #fff; background: rgba(0, 0, 0, 0.5); border-radius: 50%; cursor: pointer; transition: background 0.3s ease; }
+        .product-plus:hover { background: #1a1f4a; }
+        .product-details { margin-top: 10px; }
+        .product h3 { margin: 8px 0; color: #fff; font-size: 1em; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .product .price { font-size: 0.9em; color: #ccc; font-weight: 600; }
+        .product .details { font-size: 0.8em; color: #aaa; margin: 5px 0 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .footer { background: #222A72; color: #fff; text-align: center; padding: 30px; margin-top: 50px; }
+        .social-links a { color: #fff; margin: 0 15px; text-decoration: none; font-size: 1.2em; }
+        .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1002; align-items: center; justify-content: center; }
+        .cart-modal.show { display: flex; }
+        .cart-modal-content { background: #2d3a8a; border-radius: 15px; padding: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); position: relative; }
+        .modal-close { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #fff; font-size: 1.2em; cursor: pointer; }
+        .modal-product-info { margin-bottom: 20px; text-align: center; }
+        .modal-product-info img { max-width: 50%; border-radius: 10px; margin-bottom: 10px; }
+        .modal-product-info h3 { color: #fff; font-size: 1.3em; margin-bottom: 10px; }
+        .modal-product-info p { color: #ccc; font-size: 1em; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; color: #fff; font-weight: 600; margin-bottom: 5px; }
+        .form-group select, .form-group input { width: 100%; padding: 8px; border: none; border-radius: 5px; background: #222A72; color: #fff; font-size: 1em; }
+        .add-to-cart-btn { width: 100%; padding: 10px; background: #1a1f4a; color: #fff; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; }
+        .add-to-cart-btn:hover { background: #222A72; }
+        .cart-sidebar { position: fixed; top: 0; right: 0; width: 320px; height: 100%; background: #222A72; z-index: 1003; transform: translateX(100%); transition: transform 0.3s ease-in-out; }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1002; }
+        .cart-sidebar-overlay.show { display: block; }
+        .cart-sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #2d3a8a; }
+        .cart-sidebar-header h2 { color: #fff; font-size: 1.5em; }
+        .cart-sidebar-close { background: none; border: none; color: #fff; font-size: 1.2em; cursor: pointer; }
+        .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
+        .cart-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #2d3a8a; margin-bottom: 10px; }
+        .cart-item img { width: 70px; height: auto; border-radius: 5px; margin-right: 15px; }
+        .cart-item-details { flex: 1; color: #fff; }
+        .cart-item-details h3 { font-size: 1.1em; margin-bottom: 5px; }
+        .cart-item-details p { font-size: 0.95em; color: #ccc; margin: 3px 0; }
+        .cart-item-controls { display: flex; align-items: center; gap: 10px; }
+        .cart-item-controls button { background: none; border: 1px solid #fff; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1em; }
+        .cart-item-controls .quantity { font-size: 1em; color: #fff; }
+        .cart-item-remove { background: none; border: none; color: #ff4d4d; font-size: 1.3em; cursor: pointer; }
+        .cart-footer { padding: 15px; border-top: 1px solid #2d3a8a; }
+        .cart-total { font-size: 1.3em; font-weight: 600; color: #fff; margin-bottom: 15px; }
+        .checkout-btn, .clear-cart-btn, .continue-btn { width: 100%; padding: 12px; background: #1a1f4a; color: #fff; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
+        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover { background: #222A72; }
+        .clear-cart-btn { background: #ff4d4d; }
+        .clear-cart-btn:hover { background: #cc0000; }
+        .continue-btn { background: #2d3a8a; }
+        .continue-btn:hover { background: #1a1f4a; }
         @media (max-width: 600px) {
-            .product {
-                flex: 0 0 220px;
-                width: 220px;
-                height: 280px;
-            }
-
-            .product-image-container {
-                height: 130px;
-            }
-
-            .product img {
-                max-width: 110%;
-                max-height: 110%;
-            }
-
-            .product h3 {
-                font-size: 0.9em;
-            }
-
-            .product .price {
-                font-size: 0.8em;
-            }
-
-            .product .details {
-                font-size: 0.7em;
-            }
-
-            .products-container {
-                gap: 15px;
-            }
-
-            .category-title {
-                font-size: 1.5em;
-            }
-
-            .product-plus {
-                width: 18px;
-                height: 18px;
-                line-height: 18px;
-                font-size: 0.9em;
-            }
-        }
-
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1002;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .cart-modal.show {
-            display: flex;
-        }
-
-        .cart-modal-content {
-            background: #2d3a8a;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        .modal-product-info {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .modal-product-info img {
-            max-width: 50%;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .modal-product-info h3 {
-            color: #fff;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .modal-product-info p {
-            color: #ccc;
-            font-size: 1em;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #fff;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .form-group select, .form-group input {
-            width: 100%;
-            padding: 8px;
-            border: none;
-            border-radius: 5px;
-            background: #222A72;
-            color: #fff;
-            font-size: 1em;
-        }
-
-        .form-group select:focus, .form-group input:focus {
-            outline: none;
-            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 10px;
-            background: #1a1f4a;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .add-to-cart-btn:hover {
-            background: #222A72;
-        }
-
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 320px;
-            height: 100%;
-            background: #222A72;
-            z-index: 1003;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .cart-sidebar.open {
-            transform: translateX(0);
-        }
-
-        .cart-sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1002;
-        }
-
-        .cart-sidebar-overlay.show {
-            display: block;
-        }
-
-        .cart-sidebar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #2d3a8a;
-        }
-
-        .cart-sidebar-header h2 {
-            color: #fff;
-            font-size: 1.5em;
-        }
-
-        .cart-sidebar-close {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.2em;
-            cursor: pointer;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid #2d3a8a;
-            margin-bottom: 10px;
-        }
-
-        .cart-item img {
-            width: 70px;
-            height: auto;
-            border-radius: 5px;
-            margin-right: 15px;
-        }
-
-        .cart-item-details {
-            flex: 1;
-            color: #fff;
-        }
-
-        .cart-item-details h3 {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        .cart-item-details p {
-            font-size: 0.95em;
-            color: #ccc;
-            margin: 3px 0;
-        }
-
-        .cart-item-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cart-item-controls button {
-            background: none;
-            border: 1px solid #fff;
-            color: #fff;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .cart-item-controls .quantity {
-            font-size: 1em;
-            color: #fff;
-        }
-
-        .cart-item-remove {
-            background: none;
-            border: none;
-            color: #ff4d4d;
-            font-size: 1.3em;
-            cursor: pointer;
-        }
-
-        .cart-footer {
-            padding: 15px;
-            border-top: 1px solid #2d3a8a;
-        }
-
-        .cart-total {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 15px;
-        }
-
-        .checkout-btn, .clear-cart-btn, .continue-btn {
-            width: 100%;
-            padding: 12px;
-            background: #1a1f4a;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover {
-            background: #222A72;
-        }
-
-        .clear-cart-btn {
-            background: #ff4d4d;
-        }
-
-        .clear-cart-btn:hover {
-            background: #cc0000;
-        }
-
-        .continue-btn {
-            background: #2d3a8a;
-        }
-
-        .continue-btn:hover {
-            background: #1a1f4a;
-        }
-
-        @media (max-width: 600px) {
-            .cart-sidebar {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .cart-modal-content {
-                width: 95%;
-                padding: 15px;
-            }
-
-            .cart-item img {
-                width: 50px;
-                margin-right: 10px;
-            }
-
-            .cart-item-details h3 {
-                font-size: 1em;
-            }
-
-            .cart-item-details p {
-                font-size: 0.85em;
-            }
-
-            .modal-product-info img {
-                max-width: 50%;
-            }
+            .cart-sidebar { width: 100%; max-width: 300px; }
+            .cart-modal-content { width: 95%; padding: 15px; }
+            .cart-item img { width: 50px; margin-right: 10px; }
+            .cart-item-details h3 { font-size: 1em; }
+            .cart-item-details p { font-size: 0.85em; }
+            .modal-product-info img { max-width: 50%; }
+            .product { flex: 0 0 220px; width: 220px; height: 280px; }
+            .product-image-container { height: 130px; }
+            .product img { max-width: 110%; max-height: 110%; }
+            .product h3 { font-size: 0.9em; }
+            .product .price { font-size: 0.8em; }
+            .product .details { font-size: 0.7em; }
+            .products-container { gap: 15px; }
+            .category-title { font-size: 1.5em; }
+            .product-plus { width: 18px; height: 18px; line-height: 18px; font-size: 0.9em; }
         }
     </style>
 </head>
@@ -754,31 +305,30 @@
         <div class="logo">
             <img src="assets/365.png" alt="365 Logo" loading="lazy" />
         </div>
+        <div class="header-panel">
+            <form class="search-bar" id="search-form" role="search" action="/search" method="GET" onsubmit="return handleSearch(event)">
+                <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
+                <button type="submit" aria-label="Хайх товч"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="cart-button" id="cart-button" aria-label="Сагс руу очих" role="button" tabindex="0">
+                <img src="assets/cart.png" alt="Cart icon" />
+                <span class="cart-badge">0</span>
+            </div>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
         <div class="header-nav" id="header-nav">
             <nav class="nav" id="nav">
                 <a href="#home">Нүүр</a>
                 <a href="#contact">Холбоо барих</a>
             </nav>
-            <div class="search-menu-container">
-                <form class="search-bar" id="search-form" role="search" action="/search" method="GET" onsubmit="return handleSearch(event)">
-                    <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
-                    <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
-                </form>
-                <div class="cart-button" id="cart-button" aria-label="Сагс руу очих" role="button" tabindex="0">
-                    <img src="assets/cart.png" alt="Cart icon" />
-                    <span class="cart-badge">0</span>
-                </div>
-                <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
-                    <i class="fas fa-bars"></i>
-                </div>
-            </div>
         </div>
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны ангилал">
         <div class="no-results" id="no-results">Үр дүн олдсонгүй. Өөр үг туршиж үзнэ үү.</div>
 
-        <!-- Өмд (Pants) Category -->
         <section class="category-section" id="pants-category">
             <h2 class="category-title">Өмд</h2>
             <div class="products-container" id="pants-products">
@@ -799,7 +349,6 @@
             </div>
         </section>
 
-        <!-- Цүнх (Bags) Category -->
         <section class="category-section" id="bags-category">
             <h2 class="category-title">Цүнх</h2>
             <div class="products-container" id="bags-products">
@@ -848,7 +397,6 @@
             </div>
         </section>
 
-        <!-- Цамц (Shirts) Category -->
         <section class="category-section" id="shirts-category">
             <h2 class="category-title">Цамц</h2>
             <div class="products-container" id="shirts-products">
@@ -911,7 +459,6 @@
             </div>
         </section>
 
-        <!-- Гадуур хувцас (Outerwear) Category -->
         <section class="category-section" id="outerwear-category">
             <h2 class="category-title">Гадуур хувцас</h2>
             <div class="products-container" id="outerwear-products">
@@ -933,7 +480,6 @@
         </section>
     </main>
 
-    <!-- Cart Modal for Color and Size Selection -->
     <div class="cart-modal" id="cart-modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
         <div class="cart-modal-content">
             <button class="modal-close" id="modal-close" aria-label="Модалыг хаах"><i class="fas fa-times"></i></button>
@@ -947,8 +493,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="size-selectHTML
-                    ">Хэмжээ сонгох:</label>
+                    <label for="size-select">Хэмжээ сонгох:</label>
                     <select id="size-select" name="size" required aria-required="true">
                         <option value="" disabled selected>Хэмжээ сонгоно уу</option>
                     </select>
@@ -962,7 +507,6 @@
         </div>
     </div>
 
-    <!-- Cart Sidebar -->
     <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
         <div class="cart-sidebar-header">
             <h2>Таны сагс</h2>
@@ -977,7 +521,6 @@
         </div>
     </div>
 
-    <!-- Cart Sidebar Overlay -->
     <div class="cart-sidebar-overlay" id="cart-sidebar-overlay" aria-hidden="true"></div>
 
     <footer class="footer">
@@ -990,10 +533,7 @@
     </footer>
 
     <script>
-        // Cart state
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // DOM Elements
         const cartModal = document.getElementById('cart-modal');
         const modalClose = document.getElementById('modal-close');
         const cartForm = document.getElementById('cart-form');
@@ -1011,8 +551,9 @@
         const cartSidebar = document.getElementById('cart-sidebar');
         const cartSidebarClose = document.getElementById('cart-sidebar-close');
         const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
+        const menuToggle = document.getElementById('menu-toggle');
+        const headerNav = document.getElementById('header-nav');
 
-        // Initialize cart
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartBadge();
@@ -1020,7 +561,6 @@
             console.log('Cart updated:', cart);
         }
 
-        // Update cart badge
         function updateCartBadge() {
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = itemCount;
@@ -1028,11 +568,9 @@
             console.log('Cart badge updated:', itemCount);
         }
 
-        // Render cart items
         function renderCartItems() {
             cartItemsContainer.innerHTML = '';
             let total = 0;
-
             if (cart.length === 0) {
                 cartItemsContainer.innerHTML = '<p style="text-align: center; color: #ccc;">Сагс хоосон байна.</p>';
             } else {
@@ -1040,7 +578,6 @@
                     const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
                     const subtotal = itemPrice * item.quantity;
                     total += subtotal;
-
                     const cartItem = document.createElement('div');
                     cartItem.classList.add('cart-item');
                     cartItem.innerHTML = `
@@ -1061,10 +598,7 @@
                     cartItemsContainer.appendChild(cartItem);
                 });
             }
-
             cartTotal.textContent = `${total.toLocaleString()} ₮`;
-
-            // Re-attach event listeners
             document.querySelectorAll('.decrease-quantity').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const index = parseInt(btn.dataset.index);
@@ -1076,7 +610,6 @@
                     updateCart();
                 });
             });
-
             document.querySelectorAll('.increase-quantity').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const index = parseInt(btn.dataset.index);
@@ -1084,7 +617,6 @@
                     updateCart();
                 });
             });
-
             document.querySelectorAll('.cart-item-remove').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const index = parseInt(btn.dataset.index);
@@ -1092,11 +624,8 @@
                     updateCart();
                 });
             });
-
-            console.log('Cart items rendered:', cartItemsContainer.innerHTML);
         }
 
-        // Open cart modal
         document.querySelectorAll('.product-plus').forEach(plus => {
             plus.addEventListener('click', () => {
                 const product = plus.closest('.product');
@@ -1105,8 +634,6 @@
                 const image = product.querySelector('.product-image-container img').src;
                 const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
                 const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
-
-                // Populate modal
                 modalProductInfo.innerHTML = `
                     <img src="${image}" alt="${name}" style="border-radius:10px; margin-bottom:10px;">
                     <h3>${name}</h3>
@@ -1127,19 +654,16 @@
                     sizeSelect.appendChild(option);
                 });
                 quantityInput.value = 1;
-
                 cartModal.classList.add('show');
                 console.log('Modal opened for product:', name);
             });
         });
 
-        // Close cart modal
         modalClose.addEventListener('click', () => {
             cartModal.classList.remove('show');
             console.log('Modal closed');
         });
 
-        // Handle form submission
         cartForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = cartModal.querySelector('.modal-product-info h3').textContent;
@@ -1148,41 +672,29 @@
             const size = sizeSelect.value;
             const quantity = parseInt(quantityInput.value);
             const image = cartModal.querySelector('.modal-product-info img').src;
-
             if (!color || !size || quantity < 1) {
                 alert('Өнгө, хэмжээ болон тоо ширхэг сонгоно уу!');
                 return;
             }
-
             const existingItem = cart.find(item => item.name === name && item.color === color && item.size === size);
             if (existingItem) {
                 existingItem.quantity += quantity;
             } else {
-                cart.push({
-                    name: name,
-                    price: price,
-                    color: color,
-                    size: size,
-                    image: image,
-                    quantity: quantity
-                });
+                cart.push({ name, price, color, size, image, quantity });
             }
-
             updateCart();
             cartModal.classList.remove('show');
             alert('Бүтээгдэхүүн сагсанд нэмэгдлээ!');
             console.log('Item added to cart:', { name, color, size, quantity });
         });
 
-        // Open cart sidebar
         cartButton.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             cartSidebarOverlay.classList.add('show');
             renderCartItems();
-            console.log('Cart sidebar opened');
+            console.log('Cart button clicked, sidebar opened');
         });
 
-        // Close cart sidebar
         cartSidebarClose.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
@@ -1195,7 +707,6 @@
             console.log('Cart sidebar closed via overlay');
         });
 
-        // Clear cart
         clearCartBtn.addEventListener('click', () => {
             if (confirm('Сагсыг цэвэрлэх үү?')) {
                 cart = [];
@@ -1204,39 +715,32 @@
             }
         });
 
-        // Continue shopping
         continueBtn.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
             console.log('Continue shopping clicked');
         });
 
-        // Checkout button (placeholder)
         checkoutBtn.addEventListener('click', () => {
             alert('Төлбөрийн үйлдэл хийгдээгүй байна. Энэ бол жишээ юм.');
             console.log('Checkout clicked');
         });
 
-        // Initialize cart on page load
-        updateCart();
-        console.log('Initial cart state:', cart);
-
-        // Menu toggle logic
-        const menuToggle = document.getElementById('menu-toggle');
-        const headerNav = document.getElementById('header-nav');
         menuToggle.addEventListener('click', () => {
             headerNav.classList.toggle('open');
-            console.log('Menu toggled');
+            console.log('Menu toggle clicked, nav state:', headerNav.classList.contains('open'));
         });
 
-        // Search function
+        document.querySelector('.search-bar button').addEventListener('click', () => {
+            console.log('Search button clicked, input:', document.getElementById('search-input').value);
+        });
+
         function handleSearch(event) {
             event.preventDefault();
             const searchInput = document.getElementById('search-input').value.toLowerCase();
             const products = document.querySelectorAll('.product');
             const noResults = document.getElementById('no-results');
             let hasResults = false;
-
             products.forEach(product => {
                 const keywords = product.getAttribute('data-keywords').toLowerCase();
                 if (keywords.includes(searchInput) || searchInput === '') {
@@ -1246,11 +750,13 @@
                     product.style.display = 'none';
                 }
             });
-
             noResults.classList.toggle('show', !hasResults && searchInput !== '');
             console.log('Search performed:', searchInput);
             return false;
         }
+
+        updateCart();
+        console.log('Initial cart state:', cart);
     </script>
 </body>
 </html>
