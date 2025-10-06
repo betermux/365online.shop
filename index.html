@@ -302,6 +302,77 @@
             font-weight: 600;
         }
 
+        .history-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1002;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-modal.show {
+            display: flex;
+        }
+
+        .history-modal-content {
+            background: #2d3a8a;
+            border-radius: 15px;
+            padding: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .history-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .history-item {
+            background: #222A72;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .history-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .history-item p {
+            font-size: 0.9em;
+            color: #ccc;
+            margin: 5px 0;
+        }
+
+        .history-item ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .history-item ul li {
+            font-size: 0.9em;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
         @media (min-width: 601px) {
             .header-nav {
                 display: flex;
@@ -364,7 +435,7 @@
                 padding: 15px;
             }
 
-            .order-modal-content {
+            .order-modal-content, .history-modal-content {
                 width: 95%;
                 padding: 15px;
             }
@@ -468,6 +539,7 @@
             <nav class="nav" id="nav">
                 <a href="#home">Нүүр</a>
                 <a href="#contact">Холбоо барих</a>
+                <a href="#history" id="history-link">Захиалгын түүх</a>
             </nav>
         </div>
     </header>
@@ -705,6 +777,14 @@
         </div>
     </div>
 
+    <div class="history-modal" id="history-modal" role="dialog" aria-labelledby="history-modal-title" aria-hidden="true">
+        <div class="history-modal-content">
+            <button class="history-modal-close" id="history-modal-close" aria-label="Түүхийн модалыг хаах"><i class="fas fa-times"></i></button>
+            <h2 id="history-modal-title">Захиалгын түүх</h2>
+            <div id="history-items"></div>
+        </div>
+    </div>
+
     <div class="cart-sidebar" id="cart-sidebar" aria-hidden="true">
         <div class="cart-sidebar-header">
             <h2>Таны сагс</h2>
@@ -774,6 +854,10 @@
         const orderModalClose = document.getElementById('order-modal-close');
         const orderForm = document.getElementById('order-form');
         const orderCodeDisplay = document.getElementById('order-code');
+        const historyModal = document.getElementById('history-modal');
+        const historyModalClose = document.getElementById('history-modal-close');
+        const historyItemsContainer = document.getElementById('history-items');
+        const historyLink = document.getElementById('history-link');
 
         const savedAddress = JSON.parse(localStorage.getItem('userAddress')) || {};
         document.getElementById('name').value = savedAddress.name || '';
@@ -782,7 +866,6 @@
         document.getElementById('district').value = savedAddress.district || '';
         document.getElementById('address').value = savedAddress.address || '';
 
-        // Давтагдашгүй код үүсгэх функц
         function generateOrderCode() {
             const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             const randomLetters = letters.charAt(Math.floor(Math.random() * letters.length)) +
@@ -793,7 +876,42 @@
             return `${randomLetters}${orderNumber}`;
         }
 
-        // Захиалгын модал нээгдэхэд кодыг харуулах
+        function saveOrderToHistory(orderData) {
+            let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            orderHistory.push(orderData);
+            localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+            console.log('Order saved to history:', orderData);
+        }
+
+        function renderOrderHistory() {
+            const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            historyItemsContainer.innerHTML = '';
+            if (orderHistory.length === 0) {
+                historyItemsContainer.innerHTML = '<p style="text-align: center; color: #ccc;">Захиалгын түүх хоосон байна.</p>';
+            } else {
+                orderHistory.forEach(order => {
+                    const historyItem = document.createElement('div');
+                    historyItem.classList.add('history-item');
+                    let itemsList = '<ul>';
+                    order.items.forEach(item => {
+                        itemsList += `<li>${item.name} (${item.color}, ${item.size}) - ${item.quantity} ширхэг, ${item.price}</li>`;
+                    });
+                    itemsList += '</ul>';
+                    historyItem.innerHTML = `
+                        <h3>Гүйлгээний код: ${order.orderCode}</h3>
+                        <p>Огноо: ${new Date(order.timestamp).toLocaleString('mn-MN')}</p>
+                        <p>Нийт: ${order.total.toLocaleString()} ₮</p>
+                        <p>Нэр: ${order.user.name}</p>
+                        <p>Утас: ${order.user.phone}</p>
+                        <p>Хаяг: ${order.user.city}${order.user.district ? ', ' + order.user.district : ''}, ${order.user.address}</p>
+                        <p>Захиалсан бараанууд:</p>
+                        ${itemsList}
+                    `;
+                    historyItemsContainer.appendChild(historyItem);
+                });
+            }
+        }
+
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 alert('Таны сагс хоосон байна!');
@@ -802,7 +920,22 @@
             const orderCode = generateOrderCode();
             orderCodeDisplay.textContent = `Гүйлгээний код: ${orderCode}`;
             orderModal.classList.add('show');
+            cartSidebar.classList.remove('open');
+            cartSidebarOverlay.classList.remove('show');
             console.log('Checkout clicked, order modal opened with code:', orderCode);
+        });
+
+        historyLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            renderOrderHistory();
+            historyModal.classList.add('show');
+            headerNav.classList.remove('open');
+            console.log('History link clicked, history modal opened');
+        });
+
+        historyModalClose.addEventListener('click', () => {
+            historyModal.classList.remove('show');
+            console.log('History modal closed');
         });
 
         function updateCart() {
@@ -1013,6 +1146,8 @@
                 total,
                 timestamp: new Date().toISOString()
             };
+
+            saveOrderToHistory(orderData);
 
             const ordersRef = ref(database, 'orders');
             push(ordersRef, orderData)
