@@ -21,6 +21,31 @@
             overflow-x: hidden;
         }
 
+        /* Баннерын загвар */
+        .banner {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, #1E245D, transparent);
+        }
+
         .header {
             position: sticky;
             top: 0;
@@ -134,7 +159,7 @@
         }
 
         .header-nav {
-            display: none; /* Анхны байдлаар нуугдана, цэсний товчноос нээгдэнэ */
+            display: none;
             position: fixed;
             top: 60px;
             right: 0;
@@ -169,6 +194,32 @@
             font-size: 1.2em;
         }
 
+        /* Хайлтын үр дүнгийн panel */
+        .search-results-panel {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            max-height: 80vh;
+            background: #222A72;
+            z-index: 1002;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-results-panel.show {
+            display: block;
+        }
+
+        .search-results-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
         @media (min-width: 601px) {
             .header-nav {
                 display: flex;
@@ -193,7 +244,7 @@
             }
 
             .menu-toggle {
-                display: none; /* Десктоп дээр цэсний товч хэрэггүй */
+                display: none;
             }
         }
 
@@ -225,9 +276,13 @@
             .menu-toggle {
                 display: flex;
             }
+
+            .search-results-panel {
+                top: 60px;
+                padding: 15px;
+            }
         }
 
-        /* Бусад CSS хэсгүүд хэвээр (товчнуудын харагдацад нөлөөлөхгүй тул богиносголоо) */
         .content { max-width: 1300px; margin: 40px auto; padding: 0 20px 10px; }
         .category-section { margin-bottom: 60px; }
         .category-title { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2d3a8a; padding-bottom: 10px; }
@@ -297,6 +352,7 @@
             .products-container { gap: 15px; }
             .category-title { font-size: 1.5em; }
             .product-plus { width: 18px; height: 18px; line-height: 18px; font-size: 0.9em; }
+            .banner { height: 200px; }
         }
     </style>
 </head>
@@ -326,9 +382,17 @@
         </div>
     </header>
 
-    <main class="content" tabindex="0" aria-label="Барааны ангилал">
-        <div class="no-results" id="no-results">Үр дүн олдсонгүй. Өөр үг туршиж үзнэ үү.</div>
+    <!-- Баннерын хэсэг -->
+    <div class="banner">
+        <img src="assets/banner.png" alt="Banner Image" loading="lazy" />
+    </div>
 
+    <!-- Хайлтын үр дүнгийн panel -->
+    <div class="search-results-panel" id="search-results-panel">
+        <div class="search-results-container" id="search-results-container"></div>
+    </div>
+
+    <main class="content" tabindex="0" aria-label="Барааны ангилал">
         <section class="category-section" id="pants-category">
             <h2 class="category-title">Өмд</h2>
             <div class="products-container" id="pants-products">
@@ -553,6 +617,8 @@
         const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
         const menuToggle = document.getElementById('menu-toggle');
         const headerNav = document.getElementById('header-nav');
+        const searchResultsPanel = document.getElementById('search-results-panel');
+        const searchResultsContainer = document.getElementById('search-results-container');
 
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -739,19 +805,62 @@
             event.preventDefault();
             const searchInput = document.getElementById('search-input').value.toLowerCase();
             const products = document.querySelectorAll('.product');
-            const noResults = document.getElementById('no-results');
+            const content = document.querySelector('.content');
+            searchResultsContainer.innerHTML = '';
             let hasResults = false;
+
             products.forEach(product => {
                 const keywords = product.getAttribute('data-keywords').toLowerCase();
-                if (keywords.includes(searchInput) || searchInput === '') {
-                    product.style.display = 'inline-block';
+                if (keywords.includes(searchInput) && searchInput !== '') {
+                    const clonedProduct = product.cloneNode(true);
+                    searchResultsContainer.appendChild(clonedProduct);
                     hasResults = true;
-                } else {
-                    product.style.display = 'none';
                 }
             });
-            noResults.classList.toggle('show', !hasResults && searchInput !== '');
-            console.log('Search performed:', searchInput);
+
+            if (searchInput === '') {
+                searchResultsPanel.classList.remove('show');
+                content.style.display = 'block';
+            } else {
+                searchResultsPanel.classList.toggle('show', hasResults);
+                content.style.display = hasResults ? 'none' : 'block';
+            }
+
+            // Сагсанд нэмэх товчны event listener-ыг хайлтын үр дүнд дахин холбох
+            searchResultsContainer.querySelectorAll('.product-plus').forEach(plus => {
+                plus.addEventListener('click', () => {
+                    const product = plus.closest('.product');
+                    const name = product.querySelector('h3').textContent;
+                    const price = product.querySelector('.price').textContent;
+                    const image = product.querySelector('.product-image-container img').src;
+                    const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
+                    const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
+                    modalProductInfo.innerHTML = `
+                        <img src="${image}" alt="${name}" style="border-radius:10px; margin-bottom:10px;">
+                        <h3>${name}</h3>
+                        <p>${price}</p>
+                    `;
+                    colorSelect.innerHTML = '<option value="" disabled selected>Өнгө сонгоно уу</option>';
+                    colors.forEach(color => {
+                        const option = document.createElement('option');
+                        option.value = color;
+                        option.textContent = color;
+                        colorSelect.appendChild(option);
+                    });
+                    sizeSelect.innerHTML = '<option value="" disabled selected>Хэмжээ сонгоно уу</option>';
+                    sizes.forEach(size => {
+                        const option = document.createElement('option');
+                        option.value = size;
+                        option.textContent = size;
+                        sizeSelect.appendChild(option);
+                    });
+                    quantityInput.value = 1;
+                    cartModal.classList.add('show');
+                    console.log('Modal opened for product from search results:', name);
+                });
+            });
+
+            console.log('Search performed:', searchInput, 'Results:', hasResults);
             return false;
         }
 
