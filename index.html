@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>365 - Online Shop</title>
+    <meta name="description" content="Онлайн дэлгүүрээс загварлаг хувцас, цүнх, гадуур хувцас худалдаж аваарай.">
+    <meta name="keywords" content="онлайн дэлгүүр, хувцас, цүнх, гадуур хувцас, загвар">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
     <style>
@@ -33,6 +35,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            animation: fadeOut 2s forwards;
         }
 
         .banner::after {
@@ -43,6 +46,11 @@
             width: 100%;
             height: 50%;
             background: linear-gradient(to top, #1E245D, transparent);
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; display: none; }
         }
 
         .header {
@@ -59,11 +67,6 @@
             height: 60px;
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
         .logo img {
             height: 60px;
             width: auto;
@@ -75,44 +78,6 @@
             gap: 15px;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background: #2d3a8a;
-            border-radius: 25px;
-            padding: 4px 10px;
-            width: 160px;
-            font-size: 0.9em;
-        }
-
-        .search-bar input {
-            background: none;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9em;
-            padding: 5px 8px;
-            width: 100%;
-        }
-
-        .search-bar input::placeholder {
-            color: #ccc;
-            opacity: 1;
-        }
-
-        .search-bar button {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1em;
-            cursor: pointer;
-            padding: 0 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
         .cart-button {
             position: relative;
             cursor: pointer;
@@ -121,7 +86,6 @@
             justify-content: center;
             width: 30px;
             height: 30px;
-            z-index: 10;
         }
 
         .cart-button img {
@@ -154,7 +118,6 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            z-index: 10;
         }
 
         .header-nav {
@@ -193,32 +156,7 @@
             font-size: 1.2em;
         }
 
-        .search-results-panel {
-            display: none;
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            max-height: 80vh;
-            background: #222A72;
-            z-index: 1002;
-            overflow-y: auto;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .search-results-panel.show {
-            display: block;
-        }
-
-        .search-results-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .order-modal {
+        .cart-modal, .order-modal, .history-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -231,11 +169,11 @@
             justify-content: center;
         }
 
-        .order-modal.show {
+        .cart-modal.show, .order-modal.show, .history-modal.show {
             display: flex;
         }
 
-        .order-modal-content {
+        .cart-modal-content, .order-modal-content, .history-modal-content {
             background: #2d3a8a;
             border-radius: 15px;
             padding: 20px;
@@ -245,7 +183,7 @@
             position: relative;
         }
 
-        .order-modal-close {
+        .modal-close, .order-modal-close, .history-modal-close {
             position: absolute;
             top: 10px;
             right: 10px;
@@ -256,19 +194,19 @@
             cursor: pointer;
         }
 
-        .order-form-group {
+        .form-group, .order-form-group {
             margin-bottom: 15px;
         }
 
-        .order-form-group label {
+        .form-group label, .order-form-group label {
             display: block;
             color: #fff;
             font-weight: 600;
             margin-bottom: 5px;
         }
 
-        .order-form-group select,
-        .order-form-group input {
+        .form-group select, .form-group input,
+        .order-form-group select, .order-form-group input {
             width: 100%;
             padding: 8px;
             border: none;
@@ -278,7 +216,7 @@
             font-size: 1em;
         }
 
-        .submit-order-btn {
+        .add-to-cart-btn, .submit-order-btn {
             width: 100%;
             padding: 10px;
             background: #1a1f4a;
@@ -290,7 +228,7 @@
             cursor: pointer;
         }
 
-        .submit-order-btn:hover {
+        .add-to-cart-btn:hover, .submit-order-btn:hover {
             background: #222A72;
         }
 
@@ -314,51 +252,10 @@
             color: #fff;
             font-size: 1em;
             cursor: pointer;
-            transition: color 0.3s ease;
         }
 
         .copy-btn:hover {
             color: #ccc;
-        }
-
-        .history-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1002;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .history-modal.show {
-            display: flex;
-        }
-
-        .history-modal-content {
-            background: #2d3a8a;
-            border-radius: 15px;
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-        }
-
-        .history-modal-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.2em;
-            cursor: pointer;
         }
 
         .history-item {
@@ -392,6 +289,290 @@
             margin-bottom: 5px;
         }
 
+        .content {
+            max-width: 1300px;
+            margin: 40px auto;
+            padding: 0 20px 10px;
+        }
+
+        .category-section {
+            margin-bottom: 60px;
+        }
+
+        .category-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2d3a8a;
+            padding-bottom: 10px;
+        }
+
+        .products-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .product {
+            background: #2d3a8a;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            flex: 0 0 300px;
+            width: 300px;
+            height: 360px;
+            display: inline-block;
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .product img {
+            max-width: 110%;
+            max-height: 110%;
+            border-radius: 10px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .product-plus {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 1em;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .product-plus:hover {
+            background: #1a1f4a;
+        }
+
+        .product-details {
+            margin-top: 10px;
+        }
+
+        .product h3 {
+            margin: 8px 0;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 600;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .product .price {
+            font-size: 0.9em;
+            color: #ccc;
+            font-weight: 600;
+        }
+
+        .product .details {
+            font-size: 0.8em;
+            color: #aaa;
+            margin: 5px 0 0;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 100%;
+            background: #222A72;
+            z-index: 1003;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+
+        .cart-sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1002;
+        }
+
+        .cart-sidebar-overlay.show {
+            display: block;
+        }
+
+        .cart-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #2d3a8a;
+        }
+
+        .cart-sidebar-header h2 {
+            color: #fff;
+            font-size: 1.5em;
+        }
+
+        .cart-sidebar-close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #2d3a8a;
+            margin-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: auto;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            color: #fff;
+        }
+
+        .cart-item-details h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-details p {
+            font-size: 0.95em;
+            color: #ccc;
+            margin: 3px 0;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-item-controls button {
+            background: none;
+            border: 1px solid #fff;
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .cart-item-controls .quantity {
+            font-size: 1em;
+            color: #fff;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ff4d4d;
+            font-size: 1.3em;
+            cursor: pointer;
+        }
+
+        .cart-footer {
+            padding: 15px;
+            border-top: 1px solid #2d3a8a;
+        }
+
+        .cart-total {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn, .clear-cart-btn, .continue-btn {
+            width: 100%;
+            padding: 12px;
+            background: #1a1f4a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover {
+            background: #222A72;
+        }
+
+        .clear-cart-btn {
+            background: #ff4d4d;
+        }
+
+        .clear-cart-btn:hover {
+            background: #cc0000;
+        }
+
+        .continue-btn {
+            background: #2d3a8a;
+        }
+
+        .continue-btn:hover {
+            background: #1a1f4a;
+        }
+
+        .footer {
+            background: #222A72;
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        .social-links a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+
         @media (min-width: 601px) {
             .header-nav {
                 display: flex;
@@ -404,17 +585,14 @@
                 transform: none;
                 padding: 0;
             }
-
             .nav {
                 flex-direction: row;
                 gap: 20px;
             }
-
             .nav a {
                 padding: 0 10px;
                 font-size: 1em;
             }
-
             .menu-toggle {
                 display: none;
             }
@@ -424,119 +602,63 @@
             .logo img {
                 height: 45px;
             }
-
-            .search-bar {
-                width: 120px;
-            }
-
             .cart-button {
                 width: 25px;
                 height: 25px;
             }
-
             .cart-button img {
                 width: 16px;
                 height: 16px;
             }
-
             .cart-button .cart-badge {
                 font-size: 0.5em;
                 width: 14px;
                 height: 14px;
             }
-
             .menu-toggle {
                 display: flex;
             }
-
-            .search-results-panel {
-                top: 60px;
-                padding: 15px;
-            }
-
-            .order-modal-content, .history-modal-content {
-                width: 95%;
-                padding: 15px;
-            }
-
-            .bank-info p {
-                font-size: 0.9em;
-            }
-
             .banner {
                 height: 200px;
             }
-        }
-
-        .content { max-width: 1300px; margin: 40px auto; padding: 0 20px 10px; }
-        .category-section { margin-bottom: 60px; }
-        .category-title { font-size: 2em; font-weight: 700; color: #fff; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #2d3a8a; padding-bottom: 10px; }
-        .products-container { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 20px; padding-bottom: 10px; scroll-behavior: smooth; }
-        .product { background: #2d3a8a; border-radius: 15px; padding: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); flex: 0 0 300px; width: 300px; height: 360px; display: inline-block; }
-        .product-image-container { position: relative; width: 100%; height: 180px; overflow: hidden; }
-        .product img { max-width: 110%; max-height: 110%; border-radius: 10px; object-fit: contain; display: block; margin: 0 auto; }
-        .product-plus { position: absolute; top: 5px; right: 5px; width: 20px; height: 20px; line-height: 20px; font-size: 1em; color: #fff; background: rgba(0, 0, 0, 0.5); border-radius: 50%; cursor: pointer; transition: background 0.3s ease; }
-        .product-plus:hover { background: #1a1f4a; }
-        .product-details { margin-top: 10px; }
-        .product h3 { margin: 8px 0; color: #fff; font-size: 1em; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .product .price { font-size: 0.9em; color: #ccc; font-weight: 600; }
-        .product .details { font-size: 0.8em; color: #aaa; margin: 5px 0 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .footer { background: #222A72; color: #fff; text-align: center; padding: 30px; margin-top: 50px; }
-        .social-links a { color: #fff; margin: 0 15px; text-decoration: none; font-size: 1.2em; }
-        .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 1002; align-items: center; justify-content: center; }
-        .cart-modal.show { display: flex; }
-        .cart-modal-content { background: #2d3a8a; border-radius: 15px; padding: 20px; width: 90%; max-width: 400px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4); position: relative; }
-        .modal-close { position: absolute; top: 10px; right: 10px; background: none; border: none; color: #fff; font-size: 1.2em; cursor: pointer; }
-        .modal-product-info { margin-bottom: 20px; text-align: center; }
-        .modal-product-info img { max-width: 50%; border-radius: 10px; margin-bottom: 10px; }
-        .modal-product-info h3 { color: #fff; font-size: 1.3em; margin-bottom: 10px; }
-        .modal-product-info p { color: #ccc; font-size: 1em; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; color: #fff; font-weight: 600; margin-bottom: 5px; }
-        .form-group select, .form-group input { width: 100%; padding: 8px; border: none; border-radius: 5px; background: #222A72; color: #fff; font-size: 1em; }
-        .add-to-cart-btn { width: 100%; padding: 10px; background: #1a1f4a; color: #fff; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; }
-        .add-to-cart-btn:hover { background: #222A72; }
-        .cart-sidebar { position: fixed; top: 0; right: 0; width: 320px; height: 100%; background: #222A72; z-index: 1003; transform: translateX(100%); transition: transform 0.3s ease-in-out; }
-        .cart-sidebar.open { transform: translateX(0); }
-        .cart-sidebar-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1002; }
-        .cart-sidebar-overlay.show { display: block; }
-        .cart-sidebar-header { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #2d3a8a; }
-        .cart-sidebar-header h2 { color: #fff; font-size: 1.5em; }
-        .cart-sidebar-close { background: none; border: none; color: #fff; font-size: 1.2em; cursor: pointer; }
-        .cart-items { flex: 1; overflow-y: auto; padding: 15px; }
-        .cart-item { display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #2d3a8a; margin-bottom: 10px; }
-        .cart-item img { width: 70px; height: auto; border-radius: 5px; margin-right: 15px; }
-        .cart-item-details { flex: 1; color: #fff; }
-        .cart-item-details h3 { font-size: 1.1em; margin-bottom: 5px; }
-        .cart-item-details p { font-size: 0.95em; color: #ccc; margin: 3px 0; }
-        .cart-item-controls { display: flex; align-items: center; gap: 10px; }
-        .cart-item-controls button { background: none; border: 1px solid #fff; color: #fff; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 1em; }
-        .cart-item-controls .quantity { font-size: 1em; color: #fff; }
-        .cart-item-remove { background: none; border: none; color: #ff4d4d; font-size: 1.3em; cursor: pointer; }
-        .cart-footer { padding: 15px; border-top: 1px solid #2d3a8a; }
-        .cart-total { font-size: 1.3em; font-weight: 600; color: #fff; margin-bottom: 15px; }
-        .checkout-btn, .clear-cart-btn, .continue-btn { width: 100%; padding: 12px; background: #1a1f4a; color: #fff; border: none; border-radius: 5px; font-size: 1em; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
-        .checkout-btn:hover, .clear-cart-btn:hover, .continue-btn:hover { background: #222A72; }
-        .clear-cart-btn { background: #ff4d4d; }
-        .clear-cart-btn:hover { background: #cc0000; }
-        .continue-btn { background: #2d3a8a; }
-        .continue-btn:hover { background: #1a1f4a; }
-        @media (max-width: 600px) {
-            .cart-sidebar { width: 100%; max-width: 300px; }
-            .cart-modal-content { width: 95%; padding: 15px; }
-            .cart-item img { width: 50px; margin-right: 10px; }
-            .cart-item-details h3 { font-size: 1em; }
-            .cart-item-details p { font-size: 0.85em; }
-            .modal-product-info img { max-width: 50%; }
-            .product { flex: 0 0 220px; width: 220px; height: 280px; }
-            .product-image-container { height: 130px; }
-            .product img { max-width: 110%; max-height: 110%; }
-            .product h3 { font-size: 0.9em; }
-            .product .price { font-size: 0.8em; }
-            .product .details { font-size: 0.7em; }
-            .products-container { gap: 15px; }
-            .category-title { font-size: 1.5em; }
-            .product-plus { width: 18px; height: 18px; line-height: 18px; font-size: 0.9em; }
+            .product {
+                flex: 0 0 220px;
+                width: 220px;
+                height: 280px;
+            }
+            .product-image-container {
+                height: 130px;
+            }
+            .product img {
+                max-width: 110%;
+                max-height: 110%;
+            }
+            .product h3 {
+                font-size: 0.9em;
+            }
+            .product .price {
+                font-size: 0.8em;
+            }
+            .product .details {
+                font-size: 0.7em;
+            }
+            .products-container {
+                gap: 15px;
+            }
+            .category-title {
+                font-size: 1.5em;
+            }
+            .cart-sidebar {
+                width: 100%;
+                max-width: 300px;
+            }
+            .cart-modal-content, .order-modal-content, .history-modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+            .bank-info p {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
@@ -546,10 +668,6 @@
             <img src="assets/365.png" alt="365 Logo" loading="lazy" />
         </div>
         <div class="header-panel">
-            <form class="search-bar" id="search-form" role="search" action="/search" method="GET" onsubmit="return handleSearch(event)">
-                <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
-                <button type="submit" aria-label="Хайх товч"><i class="fas fa-search"></i></button>
-            </form>
             <div class="cart-button" id="cart-button" aria-label="Сагс руу очих" role="button" tabindex="0">
                 <img src="assets/cart.png" alt="Cart icon" />
                 <span class="cart-badge">0</span>
@@ -571,159 +689,22 @@
         <img src="assets/banner.png" alt="Banner Image" loading="lazy" />
     </div>
 
-    <div class="search-results-panel" id="search-results-panel">
-        <div class="search-results-container" id="search-results-container"></div>
-    </div>
-
     <main class="content" tabindex="0" aria-label="Барааны ангилал">
         <section class="category-section" id="pants-category">
             <h2 class="category-title">Өмд</h2>
-            <div class="products-container" id="pants-products">
-                <div class="product" data-keywords="baggy jeans dark blue өмд жинс">
-                    <div class="product-image-container">
-                        <img src="assets/baraa1.png" alt="Baggy Jeans - Dark Blue өнгөтэй жинс" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Baggy Jeans</h3>
-                        <p class="price">120,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Dark Blue</span>
-                            <span class="size">Хэмжээ: M, L, XL</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="products-container" id="pants-products"></div>
         </section>
-
         <section class="category-section" id="bags-category">
             <h2 class="category-title">Цүнх</h2>
-            <div class="products-container" id="bags-products">
-                <div class="product" data-keywords="backpack black цүнх арын цүнх">
-                    <div class="product-image-container">
-                        <img src="assets/baraa11.png" alt="Backpack - Хар өнгөтэй арын цүнх" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Backpack</h3>
-                        <p class="price">85,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Black</span>
-                            <span class="size">Хэмжээ: One Size</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product" data-keywords="tote bag brown цүнх гар цүнх">
-                    <div class="product-image-container">
-                        <img src="assets/baraa12.png" alt="Tote Bag - Бор өнгөтэй гар цүнх" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Tote Bag</h3>
-                        <p class="price">45,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Brown</span>
-                            <span class="size">Хэмжээ: Medium</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product" data-keywords="crossbody bag blue цүнх хөндлөн цүнх">
-                    <div class="product-image-container">
-                        <img src="assets/baraa13.png" alt="Crossbody Bag - Цэнхэр өнгөтэй хөндлөн цүнх" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Crossbody Bag</h3>
-                        <p class="price">60,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Blue</span>
-                            <span class="size">Хэмжээ: Small</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="products-container" id="bags-products"></div>
         </section>
-
         <section class="category-section" id="shirts-category">
             <h2 class="category-title">Цамц</h2>
-            <div class="products-container" id="shirts-products">
-                <div class="product" data-keywords="casual shirt white цамц">
-                    <div class="product-image-container">
-                        <img src="assets/baraa3.png" alt="Casual Shirt - Цагаан өнгөтэй цамц" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Casual Shirt</h3>
-                        <p class="price">95,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: White</span>
-                            <span class="size">Хэмжээ: S, M, L</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product" data-keywords="trench coat tee black blue цамц tee">
-                    <div class="product-image-container">
-                        <img src="assets/baraa5.png" alt="Trench Coat Tee - Хар, цэнхэр өнгөтэй" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Trench Coat Tee</h3>
-                        <p class="price">79,900 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Black, Blue</span>
-                            <span class="size">Хэмжээ: S, M, L</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product" data-keywords="y2k long sleeve black white цамц sleeve">
-                    <div class="product-image-container">
-                        <img src="assets/baraa6.png" alt="Y2K Long Sleeve - Хар, цагаан өнгөтэй" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Y2K Long Sleeve</h3>
-                        <p class="price">29,900 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Black, White</span>
-                            <span class="size">Хэмжээ: S, M, L, XL</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="product" data-keywords="baby tee black white grey pink цамц tee">
-                    <div class="product-image-container">
-                        <img src="assets/baraa7.png" alt="Baby Tee - Хар, цагаан, саарал, ягаан өнгөтэй" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Baby Tee</h3>
-                        <p class="price">12,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Black, White, Grey, Pink</span>
-                            <span class="size">Хэмжээ: S, M, L, XL</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="products-container" id="shirts-products"></div>
         </section>
-
         <section class="category-section" id="outerwear-category">
             <h2 class="category-title">Гадуур хувцас</h2>
-            <div class="products-container" id="outerwear-products">
-                <div class="product" data-keywords="street hoodie black худи outerwear">
-                    <div class="product-image-container">
-                        <img src="assets/baraa2.png" alt="Street Hoodie - Хар өнгөтэй худи" loading="lazy" />
-                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
-                    </div>
-                    <div class="product-details">
-                        <h3>Street Hoodie</h3>
-                        <p class="price">180,000 ₮</p>
-                        <div class="details">
-                            <span class="color">Өнгө: Black</span>
-                            <span class="size">Хэмжээ: S, M, L</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="products-container" id="outerwear-products"></div>
         </section>
     </main>
 
@@ -840,7 +821,7 @@
 
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-        import { getDatabase, ref, push } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+        import { getDatabase, ref, push, get } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 
         const firebaseConfig = {
             apiKey: "AIzaSyBvqB1SYZB64yFBFvS0H4iVr5ppN2Pztog",
@@ -876,8 +857,6 @@
         const cartSidebarOverlay = document.getElementById('cart-sidebar-overlay');
         const menuToggle = document.getElementById('menu-toggle');
         const headerNav = document.getElementById('header-nav');
-        const searchResultsPanel = document.getElementById('search-results-panel');
-        const searchResultsContainer = document.getElementById('search-results-container');
         const orderModal = document.getElementById('order-modal');
         const orderModalClose = document.getElementById('order-modal-close');
         const orderForm = document.getElementById('order-form');
@@ -908,7 +887,6 @@
             let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
             orderHistory.push(orderData);
             localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
-            console.log('Order saved to history:', orderData);
         }
 
         function renderOrderHistory() {
@@ -940,6 +918,92 @@
             }
         }
 
+        function fetchProducts() {
+            const productsRef = ref(database, 'products');
+            get(productsRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const products = Object.entries(snapshot.val()).map(([id, product]) => ({ id, ...product }));
+                    renderProducts(products);
+                } else {
+                    renderProducts([]);
+                }
+            }).catch(error => {
+                console.error('Error fetching products:', error);
+                alert('Бүтээгдэхүүн татаж авахад алдаа гарлаа.');
+            });
+        }
+
+        function renderProducts(products) {
+            const categories = {
+                pants: document.getElementById('pants-products'),
+                bags: document.getElementById('bags-products'),
+                shirts: document.getElementById('shirts-products'),
+                outerwear: document.getElementById('outerwear-products')
+            };
+            Object.values(categories).forEach(container => container.innerHTML = '');
+
+            if (products.length === 0) {
+                Object.values(categories).forEach(container => {
+                    container.innerHTML = '<p style="text-align: center; color: #ccc;">Бүтээгдэхүүн байхгүй байна.</p>';
+                });
+                return;
+            }
+
+            products.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.classList.add('product');
+                productElement.setAttribute('data-product-id', product.id);
+                productElement.innerHTML = `
+                    <div class="product-image-container">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" />
+                        <span class="product-plus" aria-label="Сагсанд нэмэх">+</span>
+                    </div>
+                    <div class="product-details">
+                        <h3>${product.name}</h3>
+                        <p class="price">${product.price.toLocaleString()} ₮</p>
+                        <div class="details">
+                            <span class="color">Өнгө: ${product.colors.join(', ')}</span>
+                            <span class="size">Хэмжээ: ${product.sizes.join(', ')}</span>
+                        </div>
+                    </div>
+                `;
+                categories[product.category].appendChild(productElement);
+            });
+
+            document.querySelectorAll('.product-plus').forEach(plus => {
+                plus.addEventListener('click', () => {
+                    const product = plus.closest('.product');
+                    const productId = product.getAttribute('data-product-id');
+                    get(ref(database, `products/${productId}`)).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const data = snapshot.val();
+                            modalProductInfo.innerHTML = `
+                                <img src="${data.image}" alt="${data.name}" style="border-radius:10px; margin-bottom:10px;">
+                                <h3>${data.name}</h3>
+                                <p>${data.price.toLocaleString()} ₮</p>
+                            `;
+                            colorSelect.innerHTML = '<option value="" disabled selected>Өнгө сонгоно уу</option>';
+                            data.colors.forEach(color => {
+                                const option = document.createElement('option');
+                                option.value = color;
+                                option.textContent = color;
+                                colorSelect.appendChild(option);
+                            });
+                            sizeSelect.innerHTML = '<option value="" disabled selected>Хэмжээ сонгоно уу</option>';
+                            data.sizes.forEach(size => {
+                                const option = document.createElement('option');
+                                option.value = size;
+                                option.textContent = size;
+                                sizeSelect.appendChild(option);
+                            });
+                            quantityInput.value = 1;
+                            cartModal.classList.add('show');
+                        }
+                    });
+                });
+            });
+        }
+
         checkoutBtn.addEventListener('click', () => {
             if (cart.length === 0) {
                 alert('Таны сагс хоосон байна!');
@@ -950,16 +1014,13 @@
             orderModal.classList.add('show');
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
-            console.log('Checkout clicked, order modal opened with code:', orderCode);
 
             document.querySelectorAll('.copy-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const textToCopy = btn.getAttribute('data-copy');
                     navigator.clipboard.writeText(textToCopy).then(() => {
                         alert('Хуулагдлаа!');
-                        console.log('Copied to clipboard:', textToCopy);
-                    }).catch(err => {
-                        console.error('Clipboard copy failed:', err);
+                    }).catch(() => {
                         alert('Хуулахад алдаа гарлаа.');
                     });
                 });
@@ -971,26 +1032,22 @@
             renderOrderHistory();
             historyModal.classList.add('show');
             headerNav.classList.remove('open');
-            console.log('History link clicked, history modal opened');
         });
 
         historyModalClose.addEventListener('click', () => {
             historyModal.classList.remove('show');
-            console.log('History modal closed');
         });
 
         function updateCart() {
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartBadge();
             renderCartItems();
-            console.log('Cart updated:', cart);
         }
 
         function updateCartBadge() {
             const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             cartBadge.textContent = itemCount;
             cartBadge.style.display = itemCount > 0 ? 'flex' : 'none';
-            console.log('Cart badge updated:', itemCount);
         }
 
         function renderCartItems() {
@@ -1000,7 +1057,7 @@
                 cartItemsContainer.innerHTML = '<p style="text-align: center; color: #ccc;">Сагс хоосон байна.</p>';
             } else {
                 cart.forEach((item, index) => {
-                    const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
+                    const itemPrice = parseFloat(item.price);
                     const subtotal = itemPrice * item.quantity;
                     total += subtotal;
                     const cartItem = document.createElement('div');
@@ -1011,7 +1068,7 @@
                             <h3>${item.name}</h3>
                             <p>Өнгө: ${item.color}</p>
                             <p>Хэмжээ: ${item.size}</p>
-                            <p>${item.price} x ${item.quantity} = ${subtotal.toLocaleString()} ₮</p>
+                            <p>${item.price.toLocaleString()} ₮ x ${item.quantity} = ${subtotal.toLocaleString()} ₮</p>
                         </div>
                         <div class="cart-item-controls">
                             <button class="decrease-quantity" data-index="${index}">-</button>
@@ -1051,48 +1108,14 @@
             });
         }
 
-        document.querySelectorAll('.product-plus').forEach(plus => {
-            plus.addEventListener('click', () => {
-                const product = plus.closest('.product');
-                const name = product.querySelector('h3').textContent;
-                const price = product.querySelector('.price').textContent;
-                const image = product.querySelector('.product-image-container img').src;
-                const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
-                const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
-                modalProductInfo.innerHTML = `
-                    <img src="${image}" alt="${name}" style="border-radius:10px; margin-bottom:10px;">
-                    <h3>${name}</h3>
-                    <p>${price}</p>
-                `;
-                colorSelect.innerHTML = '<option value="" disabled selected>Өнгө сонгоно уу</option>';
-                colors.forEach(color => {
-                    const option = document.createElement('option');
-                    option.value = color;
-                    option.textContent = color;
-                    colorSelect.appendChild(option);
-                });
-                sizeSelect.innerHTML = '<option value="" disabled selected>Хэмжээ сонгоно уу</option>';
-                sizes.forEach(size => {
-                    const option = document.createElement('option');
-                    option.value = size;
-                    option.textContent = size;
-                    sizeSelect.appendChild(option);
-                });
-                quantityInput.value = 1;
-                cartModal.classList.add('show');
-                console.log('Modal opened for product:', name);
-            });
-        });
-
         modalClose.addEventListener('click', () => {
             cartModal.classList.remove('show');
-            console.log('Modal closed');
         });
 
         cartForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = cartModal.querySelector('.modal-product-info h3').textContent;
-            const price = cartModal.querySelector('.modal-product-info p').textContent;
+            const price = parseFloat(cartModal.querySelector('.modal-product-info p').textContent.replace(/[^0-9]/g, ''));
             const color = colorSelect.value;
             const size = sizeSelect.value;
             const quantity = parseInt(quantityInput.value);
@@ -1110,79 +1133,70 @@
             updateCart();
             cartModal.classList.remove('show');
             alert('Бүтээгдэхүүн сагсанд нэмэгдлээ!');
-            console.log('Item added to cart:', { name, color, size, quantity });
         });
 
         cartButton.addEventListener('click', () => {
             cartSidebar.classList.add('open');
             cartSidebarOverlay.classList.add('show');
             renderCartItems();
-            console.log('Cart button clicked, sidebar opened');
         });
 
         cartSidebarClose.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
-            console.log('Cart sidebar closed');
         });
 
         cartSidebarOverlay.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
-            console.log('Cart sidebar closed via overlay');
         });
 
         clearCartBtn.addEventListener('click', () => {
             if (confirm('Сагсыг цэвэрлэх үү?')) {
                 cart = [];
                 updateCart();
-                console.log('Cart cleared');
             }
         });
 
         continueBtn.addEventListener('click', () => {
             cartSidebar.classList.remove('open');
             cartSidebarOverlay.classList.remove('show');
-            console.log('Continue shopping clicked');
         });
 
         orderModalClose.addEventListener('click', () => {
             orderModal.classList.remove('show');
-            console.log('Order modal closed');
         });
 
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
+            const name = document.getElementById('name').value.trim();
+            const phone = document.getElementById('phone').value.trim();
             const city = document.getElementById('city').value;
             const district = document.getElementById('district').value;
-            const address = document.getElementById('address').value;
+            const address = document.getElementById('address').value.trim();
 
             if (!name || !phone || !city || !address) {
                 alert('Бүх талбарыг бөглөнө үү!');
+                return;
+            }
+            if (name.length < 2) {
+                alert('Нэр хэт богино байна. Хамгийн багадаа 2 тэмдэгт оруулна уу.');
+                return;
+            }
+            if (!/^\d{8}$/.test(phone)) {
+                alert('Утасны дугаар буруу байна. 8 оронтой тоо оруулна уу.');
                 return;
             }
 
             const userAddress = { name, phone, city, district, address };
             localStorage.setItem('userAddress', JSON.stringify(userAddress));
 
-            const total = cart.reduce((sum, item) => {
-                const itemPrice = parseFloat(item.price.replace(/[^0-9]/g, ''));
-                return sum + itemPrice * item.quantity;
-            }, 0);
-
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
             const orderCode = document.getElementById('order-code-text').textContent;
 
             const orderData = {
                 orderCode,
-                user: {
-                    name,
-                    phone,
-                    city,
-                    district,
-                    address
-                },
+                user: { name, phone, city, district, address },
                 items: cart,
                 total,
                 timestamp: new Date().toISOString(),
@@ -1204,7 +1218,6 @@
                     orderModal.classList.remove('show');
                     cartSidebar.classList.remove('open');
                     cartSidebarOverlay.classList.remove('show');
-                    console.log('Order sent to Firebase:', orderData);
                 })
                 .catch(error => {
                     console.error('Firebase error:', error);
@@ -1212,79 +1225,24 @@
                 });
         });
 
+        document.getElementById('city').addEventListener('change', (e) => {
+            const districtSelect = document.getElementById('district');
+            if (e.target.value === 'Улаанбаатар') {
+                districtSelect.disabled = false;
+                districtSelect.setAttribute('required', 'true');
+            } else {
+                districtSelect.disabled = true;
+                districtSelect.removeAttribute('required');
+                districtSelect.value = '';
+            }
+        });
+
         menuToggle.addEventListener('click', () => {
             headerNav.classList.toggle('open');
-            console.log('Menu toggle clicked, nav state:', headerNav.classList.contains('open'));
         });
 
-        document.querySelector('.search-bar button').addEventListener('click', () => {
-            console.log('Search button clicked, input:', document.getElementById('search-input').value);
-        });
-
-        function handleSearch(event) {
-            event.preventDefault();
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            const products = document.querySelectorAll('.product');
-            const content = document.querySelector('.content');
-            searchResultsContainer.innerHTML = '';
-            let hasResults = false;
-
-            products.forEach(product => {
-                const keywords = product.getAttribute('data-keywords').toLowerCase();
-                if (keywords.includes(searchInput) && searchInput !== '') {
-                    const clonedProduct = product.cloneNode(true);
-                    searchResultsContainer.appendChild(clonedProduct);
-                    hasResults = true;
-                }
-            });
-
-            if (searchInput === '') {
-                searchResultsPanel.classList.remove('show');
-                content.style.display = 'block';
-            } else {
-                searchResultsPanel.classList.toggle('show', hasResults);
-                content.style.display = hasResults ? 'none' : 'block';
-            }
-
-            searchResultsContainer.querySelectorAll('.product-plus').forEach(plus => {
-                plus.addEventListener('click', () => {
-                    const product = plus.closest('.product');
-                    const name = product.querySelector('h3').textContent;
-                    const price = product.querySelector('.price').textContent;
-                    const image = product.querySelector('.product-image-container img').src;
-                    const colors = product.querySelector('.color').textContent.replace('Өнгө: ', '').split(', ');
-                    const sizes = product.querySelector('.size').textContent.replace('Хэмжээ: ', '').split(', ');
-                    modalProductInfo.innerHTML = `
-                        <img src="${image}" alt="${name}" style="border-radius:10px; margin-bottom:10px;">
-                        <h3>${name}</h3>
-                        <p>${price}</p>
-                    `;
-                    colorSelect.innerHTML = '<option value="" disabled selected>Өнгө сонгоно уу</option>';
-                    colors.forEach(color => {
-                        const option = document.createElement('option');
-                        option.value = color;
-                        option.textContent = color;
-                        colorSelect.appendChild(option);
-                    });
-                    sizeSelect.innerHTML = '<option value="" disabled selected>Хэмжээ сонгоно уу</option>';
-                    sizes.forEach(size => {
-                        const option = document.createElement('option');
-                        option.value = size;
-                        option.textContent = size;
-                        sizeSelect.appendChild(option);
-                    });
-                    quantityInput.value = 1;
-                    cartModal.classList.add('show');
-                    console.log('Modal opened for product from search results:', name);
-                });
-            });
-
-            console.log('Search performed:', searchInput, 'Results:', hasResults);
-            return false;
-        }
-
+        fetchProducts();
         updateCart();
-        console.log('Initial cart state:', cart);
     </script>
 </body>
 </html>
